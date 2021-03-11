@@ -1,0 +1,13 @@
+@import './../../../variables';
+
+.NavbarActions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .actionBtn {
+        &:not(:last-of-type) {
+            margin-right: $spacing-02;
+        }
+    }
+}

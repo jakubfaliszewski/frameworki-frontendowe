@@ -1,0 +1,44 @@
+// colors
+$bg-color: #f2f2f2;
+$bg-color-light: #ffffff;
+$border: #d3d3d3;
+
+$active: #8e9ce5;
+$info: #41a7f7;
+$danger: #ff5f5f;
+
+$fontColor: #2e3650;
+$fontColorAlt: white; 
+
+$header-height: 3rem;
+
+// shadows
+$shadow-01: 0 0 12px rgba(91,94,106,0.2);
+$shadow-02: 0 2px 7px rgba(91,94,106,0.2);
+
+// fonts
+$font-size-01: 1.25rem;
+$font-size-02: 1rem;
+$font-size-03: 0.75rem;
+$icon-size-01: 1rem;
+
+// spacings {
+$spacing-01: 0.25rem;
+$spacing-02: 0.5rem;
+$spacing-03: 0.75rem;
+$spacing-04: 1rem;
+$spacing-05: 1.5rem;
+$spacing-06: 2rem;
+$spacing-07: 3rem;
+
+@mixin topArrow($color, $width) {
+    border-left: $width solid transparent;
+    border-right: $width solid transparent;
+    border-bottom: $width solid $color;
+ }
+
+ @mixin truncate() {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+ }

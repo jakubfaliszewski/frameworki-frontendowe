@@ -1,0 +1,69 @@
+@import './../../../variables';
+
+.PostsNotif {
+    position: fixed;
+    top: $header-height;
+    right: $spacing-02;
+    width: 20rem;
+    max-width: 80%;
+    height: auto;
+    min-height: 100px;
+    margin-top: $spacing-03;
+    border-radius: 4px;
+    background: $bg-color-light;
+    box-shadow: $shadow-02;
+
+    &::after {
+        position: absolute;
+        top: -8px;
+        right: $spacing-02;
+        height: 0;
+        content: '';
+        @include topArrow($color: $bg-color-light, $width: 8px);
+    }
+}
+
+.post {
+    position: relative;
+    display: block;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-01 $spacing-03 $spacing-01 $spacing-02;
+    text-decoration: none;
+    &:not(:last-of-type) {
+        &::after {
+            position: absolute;
+            right: $spacing-03;
+            bottom: 0;
+            left: $spacing-03;
+            height: 1px;
+            content: '';
+            background: $border;
+        }
+    }
+    &Title {
+        font-size: $font-size-03;
+        font-weight: bold;
+        margin: 0;
+        color: $fontColor;
+
+        @include truncate();
+    }
+
+    &Content {
+        font-size: $font-size-03;
+        margin: 0;
+        color: $fontColor;
+
+        @include truncate();
+    }
+
+    &Time {
+        font-size: $font-size-03;
+        font-weight: bold;
+        margin-top: $spacing-01;
+        padding-right: $spacing-04;
+        text-align: right;
+        color: $info;
+    }
+}
