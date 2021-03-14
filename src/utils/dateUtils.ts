@@ -1,15 +1,15 @@
+import moment, { Moment } from 'moment';
 
-
-function getRandomDate(): Date {
-    return new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
+function getRandomDate(): Moment {
+    return moment(new Date(+(new Date()) - Math.floor(Math.random() * 1000000000)));
 }
 
-function formatDate(date: Date): string {
-    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-    const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
-    const da = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(date);
+function formatDate(date: Moment, fromNow: boolean = false): string | undefined {
+    if (fromNow) {
+       return date.fromNow();
+    }
 
-    return `${da} ${mo} ${ye}`;
+    return date.format('DD MMM YYYY');
 }
 
 export {

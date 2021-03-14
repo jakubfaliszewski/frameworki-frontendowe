@@ -40,6 +40,16 @@ export interface IUser {
     address: Address,
     phone: string,
     website: string,
-    company: Company,
+    company: ICompany,
     photo?: IPhoto
+}
+
+export interface IComment {
+    id: number,
+    postId: number,
+    name: string,
+    email: string,
+    body: string,
+    user?: IUser
+    post?: IPost
 }

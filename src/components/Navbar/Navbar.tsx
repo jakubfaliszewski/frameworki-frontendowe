@@ -14,7 +14,7 @@ class Navbar extends Component {
                 <div className={styles.NavbarMenu}>
                     <Link to="/" className={styles.NavbarLogo}><img src={logo} alt="Website logo" /></Link>
                 </div>
-                <Search customClass={styles.searchBar} />
+                <Search customClass={styles.searchBar} placeholder="Search Legalcluster"/>
                 <NavbarActions />
             </header>
         );

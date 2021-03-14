@@ -1,8 +1,8 @@
-
 import React, { Component, RefObject } from 'react';
-import styles from "./Search.module.scss";
-import cx from 'classnames';
+
 import { ImSearch } from "react-icons/im";
+import cx from 'classnames';
+import styles from "./Search.module.scss";
 
 type S = {
     value: string
@@ -10,6 +10,7 @@ type S = {
 
 type P = {
     customClass: string,
+    placeholder: string,
     onSearchClick: Function,
     onChange: Function
 }
@@ -17,6 +18,7 @@ type P = {
 class Search extends Component<P, S> {
     static defaultProps = {
         customClass: null,
+        placeholder: null,
         onSearchClick: () => null,
         onChange: () => null
     }
@@ -49,7 +51,7 @@ class Search extends Component<P, S> {
 
         return (
             <div className={cx(styles.Search, this.props.customClass)}>
-                <input ref={this.searchInput} type="text" value={this.state.value} placeholder={'Search Legalcluster'} onChange={(ev) => this.onChange(ev)} />
+                <input ref={this.searchInput} type="text" value={this.state.value} placeholder={this.props.placeholder} onChange={(ev) => this.onChange(ev)} />
                 <button type="button" className={cx(styles.SearchButton)} onClick={(ev) => this.props.onSearchClick(ev)}>
                     <ImSearch className={styles.SearchIcon} />
                 </button>

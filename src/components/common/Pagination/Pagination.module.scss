@@ -1,0 +1,40 @@
+@import './../../../variables.scss';
+
+
+.Pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &Button {
+        background: none;
+        border: 0;
+        color: $info;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 0 $spacing-02;
+        font-size: $font-size-03;   
+        transition: 0.24s border;
+        border: 2px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: $spacing-01 $spacing-02;
+        &:focus {
+            outline: 0;
+            border: 2px solid $info;
+        }
+
+        &Numeric {
+            margin: 0 $spacing-01;
+            margin: 0 $spacing-01;
+            padding: $spacing-01 0;
+            width: 1.5rem;
+        }
+
+        &[disabled] {
+            color: $fontColor;
+        }
+     }
+}
+
+

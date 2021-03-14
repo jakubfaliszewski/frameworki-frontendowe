@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 type P = {
-    type: "articleTile" | "article",
+    type: "articleTile" | "article" | "work",
     count: number;
 }
 

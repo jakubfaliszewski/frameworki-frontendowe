@@ -1,0 +1,14 @@
+@import './../../variables.scss';
+
+.Work {
+    &Header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-03;
+
+        &Actions {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

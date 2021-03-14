@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'commonStyles';
 
 html,
 body,
@@ -12,95 +13,22 @@ body,
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
     background-color: $bg-color;
 
     &-window {
         display: flex;
+        flex: 1;
         width: 100%;
         max-width: 100rem;
         height: 100%;
+        min-height: 0;
         margin: auto;
-
         >
         main {
+            overflow-y: auto;
             width: 100%;
-            margin-right: $spacing-03;
+            padding: $spacing-03 $spacing-02 0;
         }
-    }
-}
-
-.firstLetterUpper {
-    &:first-letter {
-        text-transform: uppercase;
-    }
-}
-
-.header-2 {
-    margin-bottom: $spacing-02;
-    margin-top: 0;
-    color: $fontColor;
-}
-
-.header-3 {
-    font-size: $font-size-02;
-    font-weight: normal;
-    margin: 0;
-    margin-bottom: $spacing-02;
-}
-
-.header-4 {
-    margin: 0.5rem 0.5rem;
-    color: $fontColorLight;
-    font-size: $font-size-03;
-}
-
-.header-5 {
-    font-size: $font-size-03;
-    font-weight: bold;
-    margin: 0;
-    color: $fontColor;
-}
-
-.skeleton {
-    position: relative;
-    overflow: hidden;
-    overflow: hidden;
-    animation: skeleton 1s ease infinite; // increase animation time to see   background-color: #dddbdd;
-    &::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        content: '';
-        transform: translateX(-100%);
-        animation: shimmer 2s infinite;
-        background-image: linear-gradient(
-        90deg,
-        rgba(#aaa, 0) 0,
-        rgba(#aaa, 0.2) 20%,
-        rgba(#aaa, 0.5) 60%,
-        rgba(#aaa, 0)
-        );
-    }
-
-    @keyframes shimmer {
-        100% {
-            transform: translateX(100%);
-        }
-    }
-
-    &-articleTile {
-        height: 16.7rem;
-        width: 30rem;
-        max-width: 30%;
-        margin-right: $spacing-04;
-        background: $bg-color;
-    }
-
-    &-article {
-        margin-bottom: $spacing-03;
-        width: 100%;
-        height: 3.3rem;
     }
 }

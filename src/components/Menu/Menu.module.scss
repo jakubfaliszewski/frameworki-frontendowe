@@ -1,8 +1,9 @@
 @import './../../variables.scss';
 
 .Menu {
-    width: 15rem;
     display: flex;
-    justify-content: center;
     flex-shrink: 0;
+    justify-content: center;
+    width: 15rem;
+    padding-top: $spacing-03;
 }

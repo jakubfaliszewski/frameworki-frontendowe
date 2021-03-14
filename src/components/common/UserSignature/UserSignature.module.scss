@@ -36,6 +36,23 @@
             font-weight: 500;
         }
     }
+
+    .Company {
+        display: flex;
+        align-items: center;
+
+        svg {
+            margin-right: $spacing-01;
+        }
+    }
+
+    .separator {
+        width: 4px;
+        height: 4px;
+        border-radius: 2px;
+        background: $fontColorLight;
+        margin: 0 $spacing-02;
+    }
 }
 
 

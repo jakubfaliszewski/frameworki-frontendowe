@@ -1,4 +1,4 @@
-import { IPhoto, IPost, IUser } from "./Rest";
+import { IComment, IPhoto, IPost, IUser } from "./Rest";
 
 const API = 'https://jsonplaceholder.typicode.com';
 
@@ -28,6 +28,14 @@ class RestService {
         return user;
     }
 
+    async getPost(id?: number): Promise<IPost> {
+        const post: IPost = await fetch(`${API}/posts/${id}`).then(response => response.json());
+        const user = await this.getUserProfile(post.userId)
+        post.user = user;
+
+        return post;
+    }
+
     async getPublications(limit?: number): Promise<Array<IPost>> {
         const args = {
             '_limit': limit
@@ -42,6 +50,21 @@ class RestService {
         }));
 
         return postsWithRel;
+    }
+
+    async getWork(limit?: number): Promise<Array<IComment>> {
+        const args = {
+            '_limit': limit
+        };
+        const argString = this._argsToString(args);
+        const comments: Array<IComment> = await fetch(`${API}/comments${argString}`).then(response => response.json());
+        const commentsWithRel =  Promise.all(comments.map(async (comment) => {
+            comment.post = await this.getPost(comment.postId).then(response => response);
+            
+            return comment;
+        }));
+
+        return commentsWithRel;
     }
 }
 

@@ -3,16 +3,16 @@
 .Navbar {
     font-size: 1.2rem;
     position: sticky;
+    z-index: 1;
     top: 0;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     justify-content: space-between;
     height: $header-height;
     padding: 0 $spacing-02;
     background-color: $bg-color-light;
     box-shadow: $shadow-01;
-    margin-bottom: $spacing-03;
-
     &Menu {
         display: flex;
         align-items: center;
@@ -33,4 +33,10 @@
     width: 50vw;
     max-width: 100%;
     margin: 0 $spacing-02;
+
+    input {
+        &::-webkit-input-placeholder {
+            text-align: center;
+        }
+    }
 }
