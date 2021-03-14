@@ -2,13 +2,13 @@ import { ImBell, ImBubbles, ImHome } from "react-icons/im";
 import React, { Component } from 'react';
 
 import ActionButton from './../../common/ActionButton/ActionButton';
-import { Post } from './../../../utils/IRest';
+import { IPost } from './../../../utils/Rest';
 import PostsNotif from './../PostsNotif/PostsNotif';
 import RestService from './../../../utils/RestService';
 import styles from "./NavbarActions.module.scss";
 
 type S = {
-    posts: Array<Post>,
+    posts: Array<IPost>,
     postsVisible: boolean
 }
 
@@ -26,10 +26,9 @@ class NavbarActions extends Component<{}, S> {
 
     componentDidMount() {
         const service = new RestService();
-        service.getPosts().then(posts => {
-            // fake limit
+        service.getPublications(3).then(posts => {
             this.setState({
-                posts: posts.slice(1, 4)
+                posts: posts
             })
         });
     }

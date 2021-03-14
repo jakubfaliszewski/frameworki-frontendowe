@@ -19,6 +19,7 @@
         right: $spacing-02;
         height: 0;
         content: '';
+
         @include topArrow($color: $bg-color-light, $width: 8px);
     }
 }
@@ -27,9 +28,15 @@
     position: relative;
     display: block;
     display: flex;
-    flex-direction: column;
     padding: $spacing-01 $spacing-03 $spacing-01 $spacing-02;
     text-decoration: none;
+
+    > div {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
     &:not(:last-of-type) {
         &::after {
             position: absolute;
@@ -42,11 +49,6 @@
         }
     }
     &Title {
-        font-size: $font-size-03;
-        font-weight: bold;
-        margin: 0;
-        color: $fontColor;
-
         @include truncate();
     }
 
@@ -65,5 +67,12 @@
         padding-right: $spacing-04;
         text-align: right;
         color: $info;
+    }
+
+    &Image {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.5rem;
+        border-radius: 50%;
     }
 }

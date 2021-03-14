@@ -1,0 +1,89 @@
+@import './../../../variables.scss';
+
+.Publications {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 4px;
+    background: $bg-color-light;
+    box-shadow: $shadow-02;
+
+    &Tile {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 30rem;
+        max-width: 30%;
+        margin-right: $spacing-04;
+        color: $fontColorAlt;
+
+        &::after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            content: '';
+            background: linear-gradient(
+            0deg, rgba($active, 0.5) 0%, rgba($active, 0) 100%);
+        }
+
+        .bgImage {
+            position: absolute;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+
+            object-fit: cover;
+        }
+        &Content {
+            z-index: 1;
+            padding: $spacing-06 $spacing-03 $spacing-04;
+        }
+
+        &Loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30rem;
+            max-width: 30%;
+            height: 10rem;
+            margin-right: $spacing-04;
+            background: $bg-color;
+        }
+    }
+
+    &Article {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: $spacing-03;
+        &Image {
+            width: 3rem;
+            height: 3rem;
+            margin-right: $spacing-02;
+        }
+
+        &Title {
+            font-size: $font-size-02;
+            margin: 0;
+            margin-bottom: $spacing-02;
+            color: $fontColor;
+            font-weight: 500;
+        }
+    }
+
+    &Container {
+        padding: $spacing-02 0;
+        width: 100%;
+        margin-right: $spacing-04;
+    }
+
+    &More {
+        text-decoration: none;
+        color: $info;
+        font-size: $font-size-03;
+    }
+}

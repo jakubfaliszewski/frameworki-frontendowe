@@ -1,16 +1,15 @@
+import React, { Component } from 'react';
 
-import React, { Component, RefObject } from 'react';
-import styles from "./ActionButton.module.scss";
-import cx from 'classnames';
-import { ImSearch } from "react-icons/im";
+import { IPost } from './../../../utils/Rest';
 import { IconType } from 'react-icons';
-import { Post } from './../../../utils/IRest';
+import cx from 'classnames';
+import styles from "./ActionButton.module.scss";
 
 type P = {
     className: string,
     text: string,
     icon: IconType,
-    actions: Array<Post>,
+    actions: Array<IPost>,
     onClick: Function
 }
 

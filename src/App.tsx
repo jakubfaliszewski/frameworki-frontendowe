@@ -7,6 +7,7 @@ import {
   Switch
 } from "react-router-dom";
 
+import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
 import React from 'react';
@@ -20,15 +21,13 @@ function App() {
           <Menu />
           <main>
             <Switch>
-              <Route path="/about">
-                about
-          </Route>
-              <Route path="/users">
-                users
-          </Route>
               <Route path="/">
-                home
-          </Route>
+                <Home/>
+              </Route>
+              <Route path="/about">
+              </Route>
+              <Route path="/users">
+              </Route>
             </Switch>
           </main>
         </div>
