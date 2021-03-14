@@ -33,6 +33,14 @@ class Pagination extends Component<P, {}> {
         </button>;
     }
 
+    componentDidUpdate() {
+        // change page to the last, if current page is higher than possible
+        if(this.props.currentPage * this.props.pageSize > this.props.itemsCount) {
+            const pageCount = Math.ceil(this.props.itemsCount /  this.props.pageSize);
+            this.props.onChange(pageCount - 1);
+        }
+    }
+
     getLayoutType(pageCount: number) {
         let countArr = new Array(pageCount).fill(0);
         countArr = countArr.map((v, i) => i);
