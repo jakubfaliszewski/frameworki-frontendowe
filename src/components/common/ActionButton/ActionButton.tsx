@@ -10,7 +10,7 @@ type P = {
     text: string,
     disabled: boolean,
     icon: IconType,
-    actions: Array<IPost>,
+    actions: number,
     onClick: Function
 }
 
@@ -27,12 +27,11 @@ class ActionButton extends Component<P, {}> {
     render() {
         const { icon, className, onClick, actions, disabled } = this.props;
         const Icon = icon;
-        const actionsCount = actions.length;
-        const label = actionsCount === 0 ? 'No notifications' : `You have ${actionsCount} notifications`;
+        const label = actions === 0 ? 'No notifications' : `You have ${actions} notifications`;
         return (
             <div className={cx(className, styles.ActionButtonContainer)} >
-                {actionsCount > 0 && <div className={styles.ActionButtonCount}>
-                    {actionsCount}
+                {actions > 0 && <div className={styles.ActionButtonCount}>
+                    {actions}
                 </div>}
                 <button aria-label={label} type="button" disabled={disabled} className={styles.ActionButton} onClick={(ev) => onClick(ev)}>
                     {this.props.text}

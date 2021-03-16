@@ -4,11 +4,13 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ActionButton from './../../common/ActionButton/ActionButton';
 import { IPost } from './../../../utils/Rest';
-import PostsNotif from './../PostsNotif/PostsNotif';
+import NavbarNotifications from "./../NavbarNotifications/NavbarNotifications";
+import { NotificationState } from "../../../reducers/NotificationReducer";
 import RestService from './../../../utils/RestService';
+import { connect } from 'react-redux';
 import styles from "./NavbarActions.module.scss";
 
-type P = RouteComponentProps;
+type P = NotificationState & RouteComponentProps;
 
 type S = {
     posts: Array<IPost>,
@@ -16,7 +18,7 @@ type S = {
 }
 
 class NavbarActions extends Component<P, S> {
-
+    
     constructor(props: P) {
         super(props);
         this.state = {
@@ -49,17 +51,23 @@ class NavbarActions extends Component<P, S> {
     }
 
     render() {
+        const notifications = this.props.notifications;
+        
         return (
             <>
                 <div className={styles.NavbarActions}>
                     <ActionButton className={styles.actionBtn} icon={ImHome} disabled={this.props.location.pathname === '/'} onClick={this.goToHome} />
                     <ActionButton className={styles.actionBtn} icon={ImBubbles} disabled />
-                    <ActionButton className={styles.actionBtn} icon={ImBell} disabled={this.state.posts.length === 0} actions={this.state.posts} onClick={this.openPostsNotif} />
+                    <ActionButton className={styles.actionBtn} icon={ImBell} disabled={notifications.length === 0} actions={notifications.length} onClick={this.openPostsNotif} />
                 </div>
-                {this.state.postsVisible && <PostsNotif posts={this.state.posts} />}
+                {this.state.postsVisible && <NavbarNotifications notifications={notifications} />}
             </>
         );
     }
 }
 
-export default withRouter(props => <NavbarActions {...props} />);;
+const mapStateToProps = (state: NotificationState) => ({
+    notifications: state.notifications
+});
+
+export default connect(mapStateToProps)(withRouter(NavbarActions));

@@ -5,6 +5,7 @@ const API = 'https://jsonplaceholder.typicode.com';
 class RestService {
 
     private _statusToText(status: number): void {
+        
         switch (status) {
             case 200: console.info("OK!"); break;
             default: console.error("Something went berserk, sorry!")

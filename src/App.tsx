@@ -10,7 +10,9 @@ import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
 import Profile from "./components/Profile/Profile";
+import { Provider } from 'react-redux';
 import React from 'react';
+import { store } from './store';
 
 const routes = [
   {
@@ -24,24 +26,27 @@ const routes = [
   }
 ];
 
+
 function App() {
 
   return (
-    <Router>
-      <div className="app">
-        <Navbar/>
-        <div className="app-window">
-          <Menu />
-          <main>
-            <Switch>
-              {routes.map((route, i) => (
-                <RouteWithSubRoutes key={i} {...route} />
-              ))}
-            </Switch>
-          </main>
+    <Provider store={store}>
+      <Router>
+        <div className="app">
+          <Navbar />
+          <div className="app-window">
+            <Menu />
+            <main>
+              <Switch>
+                {routes.map((route, i) => (
+                  <RouteWithSubRoutes key={i} {...route} />
+                ))}
+              </Switch>
+            </main>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </Provider>
   );
 }
 

@@ -1,3 +1,5 @@
+import { AnyAction, Dispatch, bindActionCreators } from 'redux';
+import { NotificationActions, NotificationReducer } from '../../../reducers/NotificationReducer';
 import React, { Component } from 'react';
 import { RiBriefcase4Line, RiNewspaperLine } from "react-icons/ri";
 import { VscClose, VscEdit, VscSave } from "react-icons/vsc";
@@ -8,6 +10,7 @@ import Field from './../../common/Field/Field';
 import { IUserLocal } from './../../../utils/Rest';
 import Img from './../../common/Img/Img';
 import RestService from './../../../utils/RestService';
+import { connect } from 'react-redux';
 import parentStyles from "./../Profile.module.scss";
 import styles from "./MainInfo.module.scss";
 
@@ -21,8 +24,10 @@ interface IField {
 
 type P = {
     profile: IUserLocal,
-    changeState: Function
-};
+    changeState: Function,
+    dispatch: Dispatch<AnyAction>
+}
+
 type S = {
     profile: IUserLocal,
     profileBasicEditMode: boolean,
@@ -35,7 +40,7 @@ class MainInfo extends Component<P, S> {
     constructor(props: P) {
         super(props);
         this.state = {
-            profile: {...props.profile},
+            profile: { ...props.profile },
             profileBasicEditMode: false
         }
 
@@ -61,8 +66,13 @@ class MainInfo extends Component<P, S> {
             profileBasicEditMode: false
         }, () => {
             if (this.state.profile) {
+                console.log(this.props);
+                this.props.dispatch({type: NotificationActions.ADD, payload: {
+                    title:`Profile of ${this.state.profile.name} was updated`,
+                    user: this.state.profile
+                }});
                 this.service.setUserProfile(userId, this.state.profile);
-                this.props.changeState({profile: this.state.profile});
+                this.props.changeState({ profile: this.state.profile });
                 this.validTemp = {};
             }
         })
@@ -71,7 +81,7 @@ class MainInfo extends Component<P, S> {
     cancelEdit() {
         this.setState({
             profileBasicEditMode: false,
-            profile: {...this.props.profile}
+            profile: { ...this.props.profile }
         });
         this.validTemp = {};
     }
@@ -98,7 +108,7 @@ class MainInfo extends Component<P, S> {
 
     render() {
         const profile = this.state.profile;
-        // console.log(this.props.profile, this.state.profile);
+
         const basic1: IField[] = [{
             label: "Name",
             type: 'string',
@@ -141,7 +151,7 @@ class MainInfo extends Component<P, S> {
                 <div className={parentStyles.editHeader}>
                     {this.state.profileBasicEditMode
                         ? <>
-                            <Button iconOnly className={parentStyles.editButton} disabled={isSomeInvalid} icon={VscSave} onClick={this.saveBasics} />
+                            <Button iconOnly className={parentStyles.editButton} disabled={isSomeInvalid} icon={VscSave} onClick={() => this.saveBasics()} />
                             <Button iconOnly className={parentStyles.editButton} icon={VscClose} onClick={this.cancelEdit} />
                         </>
                         : <Button iconOnly className={parentStyles.editButton} icon={VscEdit} onClick={this.editBasics} />}
@@ -168,4 +178,10 @@ class MainInfo extends Component<P, S> {
     }
 }
 
-export default MainInfo;
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return bindActionCreators({
+        ...NotificationReducer
+    }, dispatch);
+};
+
+export default connect(mapDispatchToProps)(MainInfo);

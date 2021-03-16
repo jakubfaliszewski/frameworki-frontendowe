@@ -1,6 +1,6 @@
 @import './../../../variables';
 
-.PostsNotif {
+.NavbarNotifications {
     position: fixed;
     top: $header-height;
     right: $spacing-02;
@@ -30,11 +30,13 @@
     display: flex;
     padding: $spacing-01 $spacing-03 $spacing-01 $spacing-02;
     text-decoration: none;
-
+    
     > div {
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        width: 100%;
+
     }
 
     &:not(:last-of-type) {

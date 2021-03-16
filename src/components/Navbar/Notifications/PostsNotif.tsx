@@ -6,7 +6,7 @@ import {
     Link
 } from "react-router-dom";
 import cx from 'classnames';
-import styles from "./PostsNotif.module.scss";
+import styles from "./NavbarNotifications.module.scss";
 
 type P = {
     posts: Array<IPost>,
