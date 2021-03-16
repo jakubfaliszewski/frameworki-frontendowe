@@ -1,27 +1,30 @@
 // colors
 $bg-color: #f2f2f2;
-$bg-color-light: #ffffff;
+$bg-color-light: #fff;
+$bg-color-light-hover: #fdfdfd;
 $border: #d3d3d3;
-
 $active: #8e9ce5;
 $info: #41a7f7;
 $danger: #ff5f5f;
-
-$fontColor: #4b5268;
+$special: linear-gradient(
+   45deg
+   , #cb5f18, #c9c32d);;
+$fontColor: #546088;
 $fontColorLight: rgb(162, 162, 162);
-$fontColorAlt: white; 
-
+$fontColorAlt: white;
 $header-height: 3rem;
 
 // shadows
 $shadow-01: 0 0 12px rgba(91,94,106,0.2);
-$shadow-02: 0 2px 7px rgba(91,94,106,0.2);
+$shadow-02: 0 2px 6px rgba(91,94,106,0.3);
+$shadow-02-press: 0 1px 3px rgba(91,94,106,0.4);
 
 // fonts
 $font-size-01: 1.25rem;
 $font-size-02: 1rem;
 $font-size-03: 0.75rem;
 $icon-size-01: 1rem;
+$icon-size-02: 1.25rem;
 
 // spacings {
 $spacing-01: 0.25rem;
@@ -33,13 +36,13 @@ $spacing-06: 2rem;
 $spacing-07: 3rem;
 
 @mixin topArrow($color, $width) {
-    border-left: $width solid transparent;
     border-right: $width solid transparent;
     border-bottom: $width solid $color;
- }
+    border-left: $width solid transparent;
+}
 
- @mixin truncate() {
+@mixin truncate() {
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
- }
+}

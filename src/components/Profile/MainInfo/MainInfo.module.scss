@@ -1,0 +1,75 @@
+@import './../../../variables.scss';
+
+.MainInfo {
+    position: relative;
+    display: grid;
+    align-items: flex-end;
+    margin-top: $spacing-04;
+
+    grid-template-columns: 7rem 14rem 14rem;
+    &Photo {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100%;
+
+        img {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: $spacing-01;
+            border-radius: 50%;
+        }
+
+        .SeeProfile {
+            button {
+                height: 1rem;
+            }
+        }
+
+        &Cont {
+            position: relative;
+
+            .Badge {
+                position: absolute;
+                top: 2rem;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;                
+                width: 2rem;
+                height: 2rem;
+                border: 3px solid $bg-color-light;
+                border-radius: 50%;
+                color: $fontColorAlt;
+                background: $special;
+            }
+        }
+    }
+
+    &Data {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-left: $spacing-04;
+        p {
+            margin: 0;
+            padding: 0 $spacing-02;
+            border: 2px solid transparent;
+            &.keyInfo {
+                font-weight: 600;
+            }
+
+            &:not(:last-of-type) {
+                margin-bottom: $spacing-01;
+            }
+        }
+
+        .Input {
+            &:not(:last-of-type) {
+                margin-bottom: $spacing-01;
+            }
+        }
+    }
+}

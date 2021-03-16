@@ -8,40 +8,39 @@
     justify-content: center;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
+    transition: color 0.24s;
     color: rgba($fontColor, 0.5);
     border: 0;
     border-radius: 50%;
     outline: 0;
-    background: transparent;
-    transition: color 0.24s;
+    background: rgba($fontColor, 0.15);
 
     &Container {
         position: relative;
     }
 
-    &WthCnt {
-        background: rgba($fontColor, 0.15);
-
-        &:focus {
-            border: 2px solid $active;
-            color: $active;
-        }
+    &:focus {
+        color: $active;
+        border: 2px solid $active;
     }
-    &Inactive {
+    &[disabled] {
+        background: transparent;
+
         &:focus {
             border: 2px solid rgba($fontColor, 0.2);
         }
     }
     &Count {
+        font-size: 0.75rem;
         position: absolute;
         top: (-$spacing-01);
-        right:(-$spacing-01);;
+        right: (-$spacing-01);
         width: 1.5rem;
-        font-size: 0.75rem;
         text-align: center;
-        background: $info;
-        border-radius: 1rem;
         color: $fontColorAlt;
+        border-radius: 1rem;
+        background: $info;;
     }
 }
 

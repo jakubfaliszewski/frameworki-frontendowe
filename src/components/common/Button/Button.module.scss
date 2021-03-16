@@ -1,0 +1,65 @@
+@import './../../../variables';
+
+
+.Button {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    cursor: pointer;
+    transition: color 0.24s, border-color 0.24s;
+    color: $active;
+    border: 0;
+    border-radius: 4px;
+    outline: 0;
+    background: transparent;
+    border: 2px solid transparent;
+
+    >
+    svg {
+        font-size: $icon-size-02;
+        flex-shrink: 0;
+        margin-right: $spacing-02;
+    }
+
+    &:hover {
+        background: rgba($active, 0.1);
+    }
+
+    &:focus {
+        border-color: $active;
+        outline: 0;
+    }
+
+    &:disabled {
+        color: $fontColorLight;
+        background: $border;
+    }
+
+    .ripple {
+        position: absolute;
+        transform: scale(0);
+        animation: ripple 600ms linear;
+        border-radius: 50%;
+        background-color: rgba($active, 0.25);
+    }
+
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+    &Icon {
+        width: 2rem;
+        border-radius: 50%;
+        svg {
+            margin: 0;
+        }
+    }
+}
+
+

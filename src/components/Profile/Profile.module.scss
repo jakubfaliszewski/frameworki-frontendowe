@@ -1,0 +1,30 @@
+@import './../../variables.scss';
+
+.Profile {
+    padding: $spacing-02 $spacing-03;
+    color: $fontColor;
+    border-radius: 4px;
+    background: $bg-color-light;
+    box-shadow: $shadow-02;
+
+    &Header {
+        display: flex;
+        justify-content: flex-end;
+
+        &Button {
+            margin-right: $spacing-02;
+        }
+    }
+
+    .editHeader {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        >div {
+            &:not(:last-of-type) {
+                margin-right: $spacing-02;
+            }
+        }
+    }
+}

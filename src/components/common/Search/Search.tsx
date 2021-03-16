@@ -47,8 +47,6 @@ class Search extends Component<P, S> {
     }
 
     render() {
-        const searchHaveValue = this.state.value.length > 0;
-
         return (
             <div className={cx(styles.Search, this.props.customClass)}>
                 <input ref={this.searchInput} type="text" value={this.state.value} placeholder={this.props.placeholder} onChange={(ev) => this.onChange(ev)} />

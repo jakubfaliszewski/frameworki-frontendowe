@@ -4,6 +4,13 @@ const API = 'https://jsonplaceholder.typicode.com';
 
 class RestService {
 
+    private _statusToText(status: number): void {
+        switch (status) {
+            case 200: console.info("OK!"); break;
+            default: console.error("Something went berserk, sorry!")
+        }
+    }
+
     private _argsToString(args: object): string {
         let argsString: string = '?';
         for (const [key, value] of Object.entries(args)) {
@@ -28,6 +35,19 @@ class RestService {
         return user;
     }
 
+    setUserProfile(id: number, data: IUser): void {
+        fetch(`${API}/users/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+            .then((response) => {
+                return this._statusToText(response.status);
+            })
+    }
+
     async getPost(id?: number): Promise<IPost> {
         const post: IPost = await fetch(`${API}/posts/${id}`).then(response => response.json());
         const user = await this.getUserProfile(post.userId)
@@ -42,7 +62,7 @@ class RestService {
         };
         const argString = this._argsToString(args);
         const posts: Array<IPost> = await fetch(`${API}/posts${argString}`).then(response => response.json());
-        const postsWithRel =  Promise.all(posts.map(async (post) => {
+        const postsWithRel = Promise.all(posts.map(async (post) => {
             post.user = await this.getUserProfile(post.userId).then(response => response);
             post.photo = await this.getUserPhoto(post.userId).then(response => response);
 
@@ -58,9 +78,9 @@ class RestService {
         };
         const argString = this._argsToString(args);
         const comments: Array<IComment> = await fetch(`${API}/comments${argString}`).then(response => response.json());
-        const commentsWithRel =  Promise.all(comments.map(async (comment) => {
+        const commentsWithRel = Promise.all(comments.map(async (comment) => {
             comment.post = await this.getPost(comment.postId).then(response => response);
-            
+
             return comment;
         }));
 

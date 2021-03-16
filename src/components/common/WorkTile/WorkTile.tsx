@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import { formatDate, getRandomDate } from '../../../utils/dateUtils';
 
 import { IComment } from './../../../utils/Rest';
@@ -13,10 +13,6 @@ type P = {
 class WorkTile extends Component<P, {}> {
 
     randomDate = formatDate(getRandomDate());
-
-    constructor(props: P) {
-        super(props)
-    }
 
     render() {
         const { work } = this.props;

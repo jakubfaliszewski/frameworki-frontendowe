@@ -37,11 +37,15 @@ export interface IUser {
     name: string,
     username: string,
     email: string
-    address: Address,
+    address: IAddress,
     phone: string,
     website: string,
     company: ICompany,
     photo?: IPhoto
+}
+
+export interface IUserLocal extends IUser {
+    partner: 'Partner' | 'Contractor'
 }
 
 export interface IComment {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 type P = {
@@ -11,10 +10,6 @@ type P = {
 class Skeleton extends Component<P, {}> {
     static defaultProps = {
         count: 1
-    }
-
-    constructor(props: P) {
-        super(props)
     }
 
     render() {

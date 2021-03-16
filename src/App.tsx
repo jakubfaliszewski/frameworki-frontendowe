@@ -1,7 +1,6 @@
 import "./App.scss";
 
 import {
-  Link,
   Route,
   BrowserRouter as Router,
   Switch
@@ -10,24 +9,34 @@ import {
 import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
+import Profile from "./components/Profile/Profile";
 import React from 'react';
 
+const routes = [
+  {
+    exact: true,
+    path: "/",
+    component: Home
+  },
+  {
+    path: "/profile/:userId",
+    component: Profile
+  }
+];
+
 function App() {
+
   return (
     <Router>
       <div className="app">
-        <Navbar />
+        <Navbar/>
         <div className="app-window">
           <Menu />
           <main>
             <Switch>
-              <Route path="/">
-                <Home/>
-              </Route>
-              <Route path="/about">
-              </Route>
-              <Route path="/users">
-              </Route>
+              {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+              ))}
             </Switch>
           </main>
         </div>
@@ -36,4 +45,15 @@ function App() {
   );
 }
 
+function RouteWithSubRoutes(route: typeof routes[0]) {
+  return (
+    <Route
+      exact={route.exact}
+      path={route.path}
+      render={(props: any) => (
+        <route.component {...props} />
+      )}
+    />
+  );
+}
 export default App;

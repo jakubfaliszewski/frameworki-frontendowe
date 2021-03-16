@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { formatDate, getRandomDate } from '../../../utils/dateUtils';
 
-import { IComment } from './../../../utils/Rest';
 import cx from 'classnames';
 import styles from "./Pagination.module.scss";
 
@@ -13,12 +12,7 @@ type P = {
 }
 
 class Pagination extends Component<P, {}> {
-
     randomDate = formatDate(getRandomDate());
-
-    constructor(props: P) {
-        super(props)
-    }
 
     static defaultProps = {
         onChange: null

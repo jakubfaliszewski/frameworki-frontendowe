@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import RestService from '../../../utils/RestService';
 import Skeleton from './../../common/Skeleton/Skeleton';
 import UserSignature from './../../common/UserSignature/UserSignature';
-import cx from 'classnames';
 import styles from "./Publications.module.scss";
 
 type S = {

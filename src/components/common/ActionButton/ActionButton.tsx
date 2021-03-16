@@ -8,6 +8,7 @@ import styles from "./ActionButton.module.scss";
 type P = {
     className: string,
     text: string,
+    disabled: boolean,
     icon: IconType,
     actions: Array<IPost>,
     onClick: Function
@@ -17,13 +18,14 @@ class ActionButton extends Component<P, {}> {
     static defaultProps = {
         className: null,
         icon: null,
+        disabled: false,
         text: null,
         actions: [],
         onClick: () => null
     }
 
     render() {
-        const { text, icon, className, onClick, actions } = this.props;
+        const { icon, className, onClick, actions, disabled } = this.props;
         const Icon = icon;
         const actionsCount = actions.length;
         const label = actionsCount === 0 ? 'No notifications' : `You have ${actionsCount} notifications`;
@@ -32,7 +34,7 @@ class ActionButton extends Component<P, {}> {
                 {actionsCount > 0 && <div className={styles.ActionButtonCount}>
                     {actionsCount}
                 </div>}
-                <button aria-label={label} type="button" className={cx(styles.ActionButton, actionsCount > 0 ? styles.ActionButtonWthCnt : styles.ActionButtonInactive)} onClick={(ev) => onClick(ev)}>
+                <button aria-label={label} type="button" disabled={disabled} className={styles.ActionButton} onClick={(ev) => onClick(ev)}>
                     {this.props.text}
                     {Icon ? <Icon /> : null}
                 </button>

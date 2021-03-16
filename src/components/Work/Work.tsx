@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 
 import { IComment } from '../../utils/Rest';
-import { Link } from "react-router-dom";
 import Pagination from '../common/Pagination/Pagination';
 import RestService from '../../utils/RestService';
 import Search from '../common/Search/Search';
 import Skeleton from './../common/Skeleton/Skeleton';
 import WorkTile from '../common/WorkTile/WorkTile';
-import cx from 'classnames';
 import styles from "./Work.module.scss";
 
 const PAGE_SIZE = 10;
@@ -88,7 +86,7 @@ class Work extends Component<{}, S> {
         return (
             <section className={styles.Work}>
                 <div className={styles.WorkHeader}>
-                    <h2 className={'header-2 header-indent'}>Latest publications</h2>
+                    <h2 className={'header-2 header-indent'}>Resume your work</h2>
                     <div className={styles.WorkHeaderActions}>
                         <Search placeholder="Filter by title..." onChange={this.changeSearch} />
                     </div>

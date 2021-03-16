@@ -3,7 +3,34 @@
 .UserCard {
     width: 13rem;
     height: 200px;
-    background: white;
+    background: $bg-color-light;
     border-radius: 4px;
     box-shadow: $shadow-02;
+    display: flex;
+    align-items: center;
+    padding: $spacing-04;
+    box-sizing: border-box;
+    flex-direction: column;
+
+    &Pic {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+    }
+
+    &Name {
+        margin-top: $spacing-02;
+        color: $info;
+    }
+
+    &Position {
+        margin: 0 0 $spacing-03;
+    }
+
+    &Hr {
+        width: calc(100% + 2rem);
+        border: 0;
+        border-top: 1px solid $border;
+        margin-left: -1rem;
+    }
 }
