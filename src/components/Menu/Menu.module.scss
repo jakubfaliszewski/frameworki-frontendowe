@@ -2,8 +2,10 @@
 
 .Menu {
     display: flex;
+    align-items: center;
+    flex-direction: column;
     flex-shrink: 0;
-    justify-content: center;
+    justify-content: flex-start;
     width: 15rem;
     padding-top: $spacing-03;
 }

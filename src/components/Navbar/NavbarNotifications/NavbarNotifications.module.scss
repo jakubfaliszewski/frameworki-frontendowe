@@ -7,7 +7,6 @@
     width: 20rem;
     max-width: 80%;
     height: auto;
-    min-height: 100px;
     margin-top: $spacing-03;
     border-radius: 4px;
     background: $bg-color-light;
@@ -20,7 +19,7 @@
         height: 0;
         content: '';
 
-        @include topArrow($color: $bg-color-light, $width: 8px);
+@include topArrow($color: $bg-color-light, $width: 8px);
     }
 }
 
@@ -28,15 +27,43 @@
     position: relative;
     display: block;
     display: flex;
+    width: 100%;
+    min-width: 0;
     padding: $spacing-01 $spacing-03 $spacing-01 $spacing-02;
     text-decoration: none;
-    
-    > div {
-        overflow: hidden;
+    >
+    div {
         display: flex;
+        overflow: hidden;
         flex-direction: column;
         width: 100%;
+    }
 
+    &Container {
+        display: flex;
+    }
+
+    &Close {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        justify-content: center;
+        width: 2rem;
+        border: 2px solid transparent;
+        background: none;
+        &:hover {
+            color: $fontColorAlt;
+            background: rgba($danger, 0.5);
+        }
+
+        &:focus {
+            border-color: rgba($danger, 0.75);
+            outline: 0;
+        }
+    }
+
+    &:hover {
+        background: rgba($active, 0.1);
     }
 
     &:not(:last-of-type) {
@@ -59,7 +86,7 @@
         margin: 0;
         color: $fontColor;
 
-        @include truncate();
+@include truncate();
     }
 
     &Time {
@@ -72,10 +99,10 @@
     }
 
     &Image {
+        flex-shrink: 0;
         width: 2rem;
         height: 2rem;
         margin-right: 0.5rem;
         border-radius: 50%;
-        flex-shrink: 0;
     }
 }

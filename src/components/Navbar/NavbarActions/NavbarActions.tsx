@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ActionButton from './../../common/ActionButton/ActionButton';
 import { IPost } from './../../../utils/Rest';
+import { IStore } from './../../../store';
 import NavbarNotifications from "./../NavbarNotifications/NavbarNotifications";
 import { NotificationState } from "../../../reducers/NotificationReducer";
 import RestService from './../../../utils/RestService';
@@ -28,6 +29,7 @@ class NavbarActions extends Component<P, S> {
 
         this.goToHome = this.goToHome.bind(this);
         this.openPostsNotif = this.openPostsNotif.bind(this);
+        this.closePostsNotif = this.closePostsNotif.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +52,12 @@ class NavbarActions extends Component<P, S> {
         })
     }
 
+    closePostsNotif() {
+        this.setState({
+            postsVisible: false
+        })
+    }
+
     render() {
         const notifications = this.props.notifications;
         
@@ -60,14 +68,14 @@ class NavbarActions extends Component<P, S> {
                     <ActionButton className={styles.actionBtn} icon={ImBubbles} disabled />
                     <ActionButton className={styles.actionBtn} icon={ImBell} disabled={notifications.length === 0} actions={notifications.length} onClick={this.openPostsNotif} />
                 </div>
-                {this.state.postsVisible && <NavbarNotifications notifications={notifications} />}
+                {this.state.postsVisible && <NavbarNotifications notifications={notifications} closeMethod={this.closePostsNotif}/>}
             </>
         );
     }
 }
 
-const mapStateToProps = (state: NotificationState) => ({
-    notifications: state.notifications
+const mapStateToProps = (state: IStore) => ({
+    notifications: state.NotificationReducer.notifications
 });
 
 export default connect(mapStateToProps)(withRouter(NavbarActions));

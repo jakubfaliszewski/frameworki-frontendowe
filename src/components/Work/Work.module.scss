@@ -11,4 +11,17 @@
             align-items: center;
         }
     }
+
+    .dropdown {
+        margin-left: $spacing-03;
+        &Item {
+            display: flex;
+            align-items: center;
+            svg {
+                margin-right: $spacing-02;
+                flex-shrink: 0;
+
+            }
+        }
+    }
 }

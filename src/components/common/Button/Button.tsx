@@ -10,6 +10,7 @@ type P = {
     icon: IconType,
     iconOnly: boolean,
     disabled: boolean,
+    border: boolean,
     className: string
 }
 
@@ -22,6 +23,7 @@ class Button extends Component<P, {}> {
         iconOnly: false,
         className: null,
         disabled: false,
+        border: false,
         onClick: () => null
     }
 
@@ -42,12 +44,12 @@ class Button extends Component<P, {}> {
     }
 
     render() {
-        const { label, icon, iconOnly, className, disabled } = this.props;
+        const { label, icon, iconOnly, className, disabled, border } = this.props;
         const Icon = icon;
         
         return (
             <div className={cx(styles.ButtonContainer, className)} >
-                <button disabled={disabled} aria-label={label} type="button" className={cx(styles.Button, iconOnly ? styles.ButtonIcon : null)} onClick={(ev) => this.onClick(ev)}>
+                <button disabled={disabled} aria-label={label} type="button" className={cx(styles.Button, iconOnly ? styles.ButtonIcon : null, border ? styles.ButtonBorder : null)} onClick={(ev) => this.onClick(ev)}>
                     {Icon ? <Icon /> : null}
                     {label}
                     <span ref={this.ripple} className={styles.ripple}></span>

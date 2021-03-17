@@ -40,7 +40,6 @@ class Profile extends Component<P, S> {
 
     componentDidUpdate() {
         const userId = Number((this.props.match.params as ProfileParams).userId);
-        console.log(userId);
         if (this.state.profile?.id !== userId) {
             this.getProfile(userId);
         }
@@ -60,7 +59,7 @@ class Profile extends Component<P, S> {
 
     render() {
         const profile = this.state.profile as IUserLocal;
-
+        
         return profile
             ? <section className={styles.Profile}>
                 <div className={styles.ProfileHeader}>

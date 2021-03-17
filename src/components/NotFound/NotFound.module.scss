@@ -1,0 +1,22 @@
+@import './../../variables.scss';
+
+.NotFound {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    p {
+        margin: 0;
+    }
+    .BgText {
+        font-size: 30rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: rgba($fontColor, 0.1);
+    }
+}

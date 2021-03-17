@@ -3,7 +3,6 @@ import { NotificationActions, NotificationReducer } from '../../../reducers/Noti
 import React, { Component } from 'react';
 import { RiBriefcase4Line, RiNewspaperLine } from "react-icons/ri";
 import { VscClose, VscEdit, VscSave } from "react-icons/vsc";
-import { isEqual, set } from 'lodash';
 
 import Button from './../../common/Button/Button';
 import Field from './../../common/Field/Field';
@@ -12,6 +11,7 @@ import Img from './../../common/Img/Img';
 import RestService from './../../../utils/RestService';
 import { connect } from 'react-redux';
 import parentStyles from "./../Profile.module.scss";
+import { set } from 'lodash';
 import styles from "./MainInfo.module.scss";
 
 interface IField {
@@ -51,7 +51,11 @@ class MainInfo extends Component<P, S> {
     }
 
     componentDidUpdate() {
-        console.log(isEqual(this.props.profile, this.state.profile));
+        if(this.state.profile.id !== this.props.profile.id) {
+            this.setState({
+                profile: this.props.profile
+            })
+        }
     }
 
     editBasics() {
@@ -66,7 +70,6 @@ class MainInfo extends Component<P, S> {
             profileBasicEditMode: false
         }, () => {
             if (this.state.profile) {
-                console.log(this.props);
                 this.props.dispatch({type: NotificationActions.ADD, payload: {
                     title:`Profile of ${this.state.profile.name} was updated`,
                     user: this.state.profile

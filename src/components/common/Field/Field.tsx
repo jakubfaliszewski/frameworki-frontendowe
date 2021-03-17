@@ -39,7 +39,6 @@ class Field extends Component<P, S> {
     }
 
     onSelectChange(ev: React.ChangeEvent<HTMLSelectElement>) {
-        console.log(ev);
         if (ev.target.value !== null) {
             this.setState({
                 value: ev.target.value
@@ -72,7 +71,7 @@ class Field extends Component<P, S> {
         const { label, type, placeholder, customClass, required, values } = this.props;
         let dropdownValues;
         if(values) {
-            dropdownValues = values.map((v) => <option value={v}>{v}</option>);
+            dropdownValues = values.map((v, i) => <option key={`option_${i}`} value={v}>{v}</option>);
         }
 
         return (

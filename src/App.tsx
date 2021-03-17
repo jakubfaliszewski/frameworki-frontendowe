@@ -9,6 +9,7 @@ import {
 import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
+import NotFound from "./components/NotFound/NotFound";
 import Profile from "./components/Profile/Profile";
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -23,6 +24,10 @@ const routes = [
   {
     path: "/profile/:userId",
     component: Profile
+  },
+  {
+    path: "/*",
+    component: NotFound
   }
 ];
 

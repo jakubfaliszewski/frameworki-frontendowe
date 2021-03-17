@@ -1,16 +1,27 @@
 @import './../../../variables.scss';
 
 .UserCard {
-    width: 13rem;
-    height: 200px;
-    background: $bg-color-light;
-    border-radius: 4px;
-    box-shadow: $shadow-02;
     display: flex;
     align-items: center;
-    padding: $spacing-04;
-    box-sizing: border-box;
     flex-direction: column;
+    box-sizing: border-box;
+    width: 13rem;
+    padding: $spacing-03 $spacing-02 $spacing-02;
+    border-radius: 4px;
+    background: $bg-color-light;
+    box-shadow: $shadow-02;
+
+    &Link {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        padding-top: $spacing-01;
+        border-radius: 4px;
+        &:hover {
+            background: rgba($active, 0.1);
+        }
+    }
 
     &Pic {
         width: 5rem;
@@ -28,9 +39,51 @@
     }
 
     &Hr {
-        width: calc(100% + 2rem);
+        width: calc(100% + 1rem);
+        margin-left: -0.5rem;
         border: 0;
         border-top: 1px solid $border;
-        margin-left: -1rem;
     }
 }
+.UserCardButtons {
+    display: grid;
+    align-items: center;
+    width: 100%;
+
+    grid-gap: 0.25rem;
+    grid-template-columns: 1fr 2rem;
+
+    .ButtonFull {
+        button {
+            justify-content: flex-start;
+            width: 100%;
+        }
+    }
+
+    button {
+        color: $fontColor;
+    }
+}
+.UserTransparent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 13rem;
+    padding-top: $spacing-03;
+
+    .Button {
+        width: 100%;
+        button {
+            justify-content: flex-start;
+            width: 100%;
+            color: $fontColor;
+
+            svg {
+                font-size: $icon-size-03;
+                margin-right: $spacing-03;
+            }
+        }
+    }
+}
+

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { IPost } from './../../../utils/Rest';
 import { IconType } from 'react-icons';
 import cx from 'classnames';
 import styles from "./ActionButton.module.scss";

@@ -1,4 +1,6 @@
+import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import React, { Component } from 'react';
+import { VscFeedback, VscRss } from 'react-icons/vsc'
 
 import { IComment } from '../../utils/Rest';
 import Pagination from '../common/Pagination/Pagination';
@@ -14,11 +16,11 @@ const WORKS_LIMIT = 200;
 type S = {
     works: Array<IComment> | null,
     currentPage: number,
-    searchValue: string
+    searchValue: string,
+    onlyMyWorks: boolean
 }
 
 class Work extends Component<{}, S> {
-
     service;
 
     constructor(props: {}) {
@@ -27,16 +29,18 @@ class Work extends Component<{}, S> {
         this.state = {
             works: null,
             searchValue: '',
+            onlyMyWorks: false,
             currentPage: 0
         }
-
         this.changePage = this.changePage.bind(this);
         this.changeSearch = this.changeSearch.bind(this);
+        this.onDropdownChange = this.onDropdownChange.bind(this);
     }
 
     componentDidMount() {
         this.getWorksFromApi();
     }
+    
 
     getWorksFromApi() {
         this.service.getWork(WORKS_LIMIT).then(works => {
@@ -58,14 +62,23 @@ class Work extends Component<{}, S> {
         })
     }
 
+    onDropdownChange(value: boolean) {
+        this.setState({
+            onlyMyWorks: value
+        })
+    }
+
     filterRows(works: IComment[]): IComment[] {
+        let worksFiltered = [...works];
         if (this.state.searchValue !== '') {
             const filterString = this.state.searchValue.toLowerCase();
-
-            return works.filter(v => v.name.toLowerCase().includes(filterString));
+            worksFiltered = worksFiltered.filter(v => v.name.toLowerCase().includes(filterString));
+        }
+        if (this.state.onlyMyWorks) {
+            worksFiltered = worksFiltered.filter(v => v.post?.userId === 1);
         }
 
-        return works;
+        return worksFiltered;
     }
 
     getWorks(filteredWorks: IComment[]) {
@@ -82,6 +95,14 @@ class Work extends Component<{}, S> {
     render() {
         const { works, currentPage } = this.state;
         const filteredWorks = this.filterRows(this.state.works ? [...this.state.works] : []);
+        const dropdownItems: IDropdownItem[] = [{
+            label: <div className={styles.dropdownItem}><VscFeedback /> My items</div>,
+            value: true
+        }, {
+            label: <div className={styles.dropdownItem}><VscRss /> All items</div>,
+            value: false
+        }];
+        const dropdownValue = dropdownItems[dropdownItems.findIndex((v) => v.value === this.state.onlyMyWorks)];
 
         return (
             <section className={styles.Work}>
@@ -89,6 +110,7 @@ class Work extends Component<{}, S> {
                     <h2 className={'header-2 header-indent'}>Resume your work</h2>
                     <div className={styles.WorkHeaderActions}>
                         <Search placeholder="Filter by title..." onChange={this.changeSearch} />
+                        <Dropdown className={styles.dropdown} items={dropdownItems} value={dropdownValue} onChange={this.onDropdownChange} />
                     </div>
                 </div>
                 <div className={styles.WorkContainer}>
