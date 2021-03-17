@@ -1,0 +1,40 @@
+@import './../../../variables.scss';
+
+.EntitiesFilters {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: $spacing-02;
+    padding: $spacing-01;
+    border-radius: 4px;
+    background: $bg-color-light;
+    box-shadow: $shadow-02;
+    box-sizing: border-box;
+    &::after {
+        position: absolute;
+        top: -8px;
+        left: 17.8rem;
+        height: 0;
+        content: '';
+
+@include topArrow($color: $bg-color-light, $width: 8px);
+    }
+
+    .EntitiesRow {
+        display: flex;
+        margin: 0 $spacing-01 $spacing-01;
+
+        gap: $spacing-02;
+    }
+
+    .condition {
+        color: $active;
+        margin: 0;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        margin-top: -1px;
+    }
+}

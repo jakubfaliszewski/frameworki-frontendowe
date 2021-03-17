@@ -12,7 +12,7 @@ type P = {
     placeholder: string,
     required: boolean,
     label: string | undefined,
-    type: 'string' | 'number' | 'email' | 'dropdown',
+    type: 'string' | 'number' | 'email' | 'dropdown' | 'date',
     value: string | number | undefined,
     values?: string[],
     onChange: Function

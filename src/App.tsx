@@ -6,6 +6,7 @@ import {
   Switch
 } from "react-router-dom";
 
+import Entities from "./components/Entities/Entities";
 import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
@@ -24,6 +25,10 @@ const routes = [
   {
     path: "/profile/:userId",
     component: Profile
+  },
+  {
+    path: "/entities",
+    component: Entities
   },
   {
     path: "/*",

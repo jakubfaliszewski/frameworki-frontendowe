@@ -57,3 +57,10 @@ export interface IComment {
     user?: IUser
     post?: IPost
 }
+
+export interface IFakeCompany {
+    id: number,
+    address: string,
+    name: string,
+    photo?: IPhoto
+}

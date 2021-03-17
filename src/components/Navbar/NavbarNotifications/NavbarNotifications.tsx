@@ -52,13 +52,21 @@ class NavbarNotifications extends Component<P> {
         const notifArray = [...this.props.notifications];
 
         return notifArray.map((notif, i) => <div className={styles.postContainer} key={`notif_${i}`}>
-            <Link className={styles.post} to={`/profile/${notif.user.id}`}>
-                <Img skeletonize src={notif.user?.photo?.thumbnailUrl} className={styles.postImage} alt={notif.user?.photo?.title} />
-                <div>
-                    <h5 className={cx(styles.postTitle, 'header-5 firstLetterUpper')}>{notif.title}</h5>
-                    <time className={styles.postTime}>{formatDate(notif.time, true)}</time>
-                </div>
-            </Link>
+            {notif.user
+                ? <Link className={styles.post} to={`/profile/${notif.user.id}`}>
+                    <Img skeletonize src={notif.user?.photo?.thumbnailUrl} className={styles.postImage} alt={notif.user?.photo?.title} />
+                    <div>
+                        <h5 className={cx(styles.postTitle, 'header-5 firstLetterUpper')}>{notif.title}</h5>
+                        <time className={styles.postTime}>{formatDate(notif.time, true)}</time>
+                    </div>
+                </Link>
+                : <div className={styles.post}>
+                    <div>
+                        <h5 className={cx(styles.postTitle, 'header-5')}>{notif.title}</h5>
+                        <time className={styles.postTime}>{formatDate(notif.time, true)}</time>
+                    </div>
+                </div>}
+
             <button className={styles.postClose} onClick={() => this.removeNotif(notif.id)}><VscClose /></button>
         </div>
         );

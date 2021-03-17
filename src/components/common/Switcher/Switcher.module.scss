@@ -1,0 +1,65 @@
+@import './../../../variables';
+
+
+.Switcher {
+    display: flex;
+    &Button {
+        button {
+            display: flex;
+            align-items: center;
+            padding: $spacing-01 $spacing-02;
+            color: $fontColor;
+            border: 0;
+            border: 1px solid rgba(142, 156, 229, 0.2);
+            background: transparent;
+            p {
+                font-weight: 600;
+                overflow: hidden;
+                width: 0;
+                height: 0;
+                transition: opacity 0.24s;
+                opacity: 0;
+            }
+            svg {
+                margin: 0;
+            }
+        }
+
+        &.active {
+            button {
+                border-color: transparent;
+                background: rgba($active, 0.2);
+                p {
+                    width: auto;
+                    height: auto;
+                    opacity: 1;
+                }
+
+                svg {
+                    margin-right: $spacing-02;
+                }
+            }
+        }
+
+        &:focus {
+            border-color: $active;
+            outline: 0;
+        }
+
+        &:first-of-type {
+            >
+            button {
+                border-radius: 4px 0 0 4px;
+            }
+        }
+
+        &:last-of-type {
+            >
+            button {
+                border-radius: 0 4px 4px 0;
+            }
+        }
+    }
+}
+
+

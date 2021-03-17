@@ -17,7 +17,7 @@
         border: 2px solid transparent;
         border-radius: 4px;
         background: rgba($fontColor, 0.15);
-
+        min-width: 13rem;
         &:focus {
             border: 2px solid $active;
             outline: 0;

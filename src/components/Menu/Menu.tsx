@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 
+import { FullscreenState } from '../../reducers/FullscreenReducer';
+import { IStore } from '../../store';
 import UserCard from "./UserCard/UserCard";
+import { connect } from 'react-redux';
+import cx from "classnames";
 import styles from "./Menu.module.scss";
 
-class Menu extends Component {
+type P = FullscreenState;
 
+class Menu extends Component<P> {
+    
+    constructor(props: P) {
+        super(props);
+    }
     render() {
         return (
-            <aside className={styles.Menu}>
-                <UserCard/>
+            <aside className={cx(styles.Menu, this.props.isFullscreen ? styles.MenuHidden : null)} >
+                <UserCard />
             </aside>
         );
     }
 }
 
-export default Menu;
+const mapStateToProps = (state: IStore) => ({
+    isFullscreen: state.FullscreenReducer.isFullscreen
+});
+
+export default connect(mapStateToProps)(Menu);

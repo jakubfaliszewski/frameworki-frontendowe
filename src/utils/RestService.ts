@@ -1,11 +1,11 @@
-import { IComment, IPhoto, IPost, IUser } from "./Rest";
+import { IComment, IFakeCompany, IPhoto, IPost, IUser } from "./Rest";
 
 const API = 'https://jsonplaceholder.typicode.com';
 
 class RestService {
 
     private _statusToText(status: number): void {
-        
+
         switch (status) {
             case 200: console.info("OK!"); break;
             default: console.error("Something went berserk, sorry!")
@@ -86,6 +86,24 @@ class RestService {
         }));
 
         return commentsWithRel;
+    }
+
+    async getFakeCompanies(): Promise<Array<IFakeCompany>> {
+        let users: Array<IUser> = await fetch(`${API}/users`).then(response => response.json());
+        users = [...users, ...users, ...users];
+        let address = Promise.all(users.map(async (user, i) => {
+            const newAddress: IFakeCompany = {
+                id: i,
+                address: `${user.address.street} ${user.address.suite}, ${user.address.city}`,
+                name: user.company.name
+            }
+
+            newAddress.photo = await this.getUserPhoto(user.id).then(response => response);
+
+            return newAddress;
+        }));
+
+        return address;
     }
 }
 

@@ -65,7 +65,7 @@ class Publications extends Component<{}, S> {
                 <div className={styles.PublicationsContainer}>
                     <h2 className={'header-2'}>Latest publications</h2>
                     {this.getPosts()}
-                    <Link className={styles.PublicationsMore} to='/'>
+                    <Link className={styles.PublicationsMore} to='/404'>
                         <Button label="See more publications" />
                     </Link>
                 </div>

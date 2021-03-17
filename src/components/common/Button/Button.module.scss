@@ -22,6 +22,11 @@
         font-size: $icon-size-02;
         flex-shrink: 0;
         margin-right: $spacing-02;
+        transition: transform 0.24s;
+    }
+
+    > p {
+        margin: 0;
     }
 
     &:hover {

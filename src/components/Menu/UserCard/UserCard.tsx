@@ -1,5 +1,6 @@
 import { IoAdd, IoNewspaperOutline } from 'react-icons/io5'
 import { IoIosPeople, IoMdPersonAdd } from 'react-icons/io'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Button from '../../common/Button/Button';
@@ -7,7 +8,6 @@ import { FaRegBuilding } from 'react-icons/fa'
 import { GiAtom } from 'react-icons/gi'
 import { IUser } from './../../../utils/Rest';
 import Img from '../../common/Img/Img';
-import { Link } from 'react-router-dom';
 import RestService from '../../../utils/RestService';
 import cx from 'classnames';
 import styles from "./UserCard.module.scss";
@@ -16,8 +16,8 @@ type S = {
     profile?: IUser,
 }
 
-class UserCard extends Component<{}, S> {
-    constructor(props: {}) {
+class UserCard extends Component<RouteComponentProps, S> {
+    constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
             profile: undefined,
@@ -32,6 +32,10 @@ class UserCard extends Component<{}, S> {
                 profile: profile
             })
         });
+    }
+
+    goTo(route: string) {
+        this.props.history.push(route);
     }
 
     render() {
@@ -54,13 +58,13 @@ class UserCard extends Component<{}, S> {
                     </div>
                 </div>
                 <div className={styles.UserTransparent}>
-                    <Button className={styles.Button} label="Publications" icon={IoNewspaperOutline} />
-                    <Button className={styles.Button} label="Ecosystem" icon={GiAtom} />
-                    <Button className={styles.Button} label="Your Entities" icon={FaRegBuilding} />
+                    <Button className={styles.Button} label="Publications" icon={IoNewspaperOutline} onClick={() => this.goTo('/404')} />
+                    <Button className={styles.Button} label="Ecosystem" icon={GiAtom} onClick={() => this.goTo('/404')} />
+                    <Button className={styles.Button} label="Your Entities" icon={FaRegBuilding} onClick={() => this.goTo('/entities')} />
                 </div>
             </>
         );
     }
 }
 
-export default UserCard;
+export default withRouter(UserCard);;

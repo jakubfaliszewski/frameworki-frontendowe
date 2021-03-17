@@ -1,0 +1,109 @@
+@import './../../variables.scss';
+
+.Entities {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: $spacing-04;
+
+    &Header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-03;
+
+        &Options {
+            display: flex;
+            align-items: center;
+            color: $fontColor;
+
+            .title {
+                font-size: $font-size-02;
+                margin: 0;
+                margin-right: $spacing-02;
+            }
+        }
+    }
+
+    .optionsButtonActive {
+        button {
+            background: rgba($active, 0.4);
+        }
+    }
+    .EntitiesContainer {
+        display: grid;
+        width: 100%;
+
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: $spacing-02;
+
+        .Entity {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: $spacing-02;
+            border-radius: 4px;
+            background: $bg-color-light;
+            box-shadow: $shadow-02;
+
+            &Photo {
+                height: 4rem;
+                width: 4rem;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+
+            &Content {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                margin-left: $spacing-03;
+            }
+
+            &Name {
+                font-size: $font-size-02;
+                margin: 0;
+                color: $active;
+            }
+
+            &Address {
+                font-size: $font-size-03;
+                margin: 0;
+                color: $fontColorLight;
+            }
+        }
+
+        &.EntitiesContainerList {
+            display: flex;
+            flex-direction: column;
+            .Entity {
+                &Photo {
+                    height:  2rem;
+                    width: 2rem;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+
+    .EntitiesOptions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $spacing-02;
+        &Right {
+            display: flex;
+            gap: $spacing-02;
+            .dropdownItem {
+                display: flex;
+                align-items: center;
+                svg {
+                    flex-shrink: 0;
+                    margin-right: $spacing-02;
+                }
+            }
+        }
+    }
+}

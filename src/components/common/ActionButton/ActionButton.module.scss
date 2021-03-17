@@ -40,7 +40,42 @@
         text-align: center;
         color: $fontColorAlt;
         border-radius: 1rem;
-        background: $info;;
+        background: $info;
+
+        animation: showCount 1s forwards;
+        @keyframes showCount {
+            0%{
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(0.8);
+            }
+
+            50% {
+                transform: scale(1) rotate(-10deg);
+            }
+
+            60% {
+                transform: scale(1) rotate(0);
+            }
+
+            70% {
+                transform: scale(1) rotate(10deg);
+            }
+
+            80% {
+                transform: scale(1) rotate(0);
+            }
+
+            90% {
+                transform: scale(1) rotate(-10deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0);
+            }
+        }
     }
 }
 

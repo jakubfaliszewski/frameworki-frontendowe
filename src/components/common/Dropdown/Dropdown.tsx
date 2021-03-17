@@ -15,7 +15,7 @@ type S = {
 
 type P = {
     items: IDropdownItem[],
-    onChange: Function,
+    onChange?: Function,
     value?: IDropdownItem
     disabled?: boolean,
     className?: string
@@ -27,6 +27,7 @@ class Dropdown extends Component<P, S> {
     static defaultProps = {
         disabled: false,
         className: null,
+        onChange: () => null,
     }
 
     constructor(props: P) {
@@ -72,7 +73,9 @@ class Dropdown extends Component<P, S> {
 
     onChange(value: any) {
         this.closeDropdown();
-        this.props.onChange(value);
+        if(this.props.onChange) {
+            this.props.onChange(value);
+        }
     }
 
     closeDropdown() {

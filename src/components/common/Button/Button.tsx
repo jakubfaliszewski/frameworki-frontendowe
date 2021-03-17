@@ -51,7 +51,7 @@ class Button extends Component<P, {}> {
             <div className={cx(styles.ButtonContainer, className)} >
                 <button disabled={disabled} aria-label={label} type="button" className={cx(styles.Button, iconOnly ? styles.ButtonIcon : null, border ? styles.ButtonBorder : null)} onClick={(ev) => this.onClick(ev)}>
                     {Icon ? <Icon /> : null}
-                    {label}
+                    <p>{label}</p>
                     <span ref={this.ripple} className={styles.ripple}></span>
                 </button>
             </div>

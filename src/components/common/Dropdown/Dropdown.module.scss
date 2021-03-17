@@ -26,13 +26,14 @@
     &Values {
         font-size: 0.85rem;
         position: absolute;
+        z-index: 1;
         right: 0;
         left: 0;
         color: $active;
         border: 2px solid;
         border-top: 0;
         border-radius: 0 0 4px 4px;
-        background: rgba($active, 0.1);
+        background: rgb(243, 245, 252);
 
         backdrop-filter: blur(4px);
     }
@@ -43,6 +44,10 @@
         &:hover {
             background: rgba($active, 0.2);
         }
+    }
+
+    &:disabled {
+        background: $bg-color;
     }
 
     >
