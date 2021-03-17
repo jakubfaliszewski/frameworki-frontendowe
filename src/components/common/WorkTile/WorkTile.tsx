@@ -22,7 +22,7 @@ class WorkTile extends Component<P, {}> {
                 <div>
                     <h3 className={cx(styles.WorkTileName, 'header-3 firstLetterUpper')}>{work.name}</h3>
                     <p className={styles.WorkTileBody} >{work.body}</p>
-                    <UserSignature type="company" onWhiteBg company={work.post?.user?.company.name} name={work.post?.user?.name} imageSrc={work.post?.user?.photo?.thumbnailUrl} />
+                    {work?.post && <UserSignature type="company" onWhiteBg company={work.post?.user?.company.name} name={work.post?.user?.name} imageSrc={work.post?.user?.photo?.thumbnailUrl} userId={work.post?.userId}/>}
                 </div>
             </div>
         );

@@ -4,6 +4,7 @@ import { getRandomNumber, isPrime } from '../../../utils/mathUtils';
 
 import { BiBuilding } from "react-icons/bi";
 import Img from '../Img/Img';
+import { Link } from 'react-router-dom';
 import { RiNewspaperLine } from "react-icons/ri";
 import cx from 'classnames';
 import styles from "./UserSignature.module.scss";
@@ -14,6 +15,7 @@ type P = {
     company: string,
     onWhiteBg: boolean,
     imageSrc: string,
+    userId: number,
     type: 'user' | 'company'
 }
 
@@ -55,14 +57,16 @@ class UserSignature extends Component<P, {}> {
     }
 
     contentSwitch() {
-        const { name, imageSrc, company, type } = this.props;
+        const { name, imageSrc, company, type, userId } = this.props;
 
         switch (type) {
             case 'user':
                 return <>
                     <time>{formatDate(this.randomDate)}</time>
-                    <Img skeletonize className={styles.UserAvatar} src={imageSrc} alt={`${name} avatar`} />
-                    <p>{name}</p>
+                    <Link to={`/profile/${userId}`} className={styles.userLink}>
+                        <Img skeletonize className={styles.UserAvatar} src={imageSrc} alt={`${name} avatar`} />
+                        <p>{name}</p>
+                    </Link>
                 </>;
             case 'company':
                 return <>
@@ -71,7 +75,9 @@ class UserSignature extends Component<P, {}> {
                     <div className={styles.separator}></div>
                     {this.renderComType()}
                     <div className={styles.separator}></div>
-                    <time>Updated {formatDate(this.randomDate, true)} by {name}</time>
+                    <Link to={`/profile/${userId}`} className={styles.userLink}>
+                        <time>Updated {formatDate(this.randomDate, true)} by {name}</time>
+                    </Link>
                 </>;
         }
     }
@@ -83,7 +89,7 @@ class UserSignature extends Component<P, {}> {
         return (
             <div className={cx(className, styles.UserSignature, onWhiteBg ? styles.UserSignatureDark : null)}>
                 {this.contentSwitch()}
-            </div >
+            </div>
         );
     }
 }

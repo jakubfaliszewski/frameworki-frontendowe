@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Button from '../../common/Button/Button';
 import { IPost } from '../../../utils/Rest';
 import Img from '../../common/Img/Img';
 import { Link } from "react-router-dom";
@@ -37,7 +38,7 @@ class Publications extends Component<{}, S> {
             <Img skeletonize className={styles.bgImage} src={post.photo?.url} alt={post.photo?.title} />
             <div className={styles.PublicationsTileContent}>
                 <h3 className={'header-3 firstLetterUpper'}>{post.title}</h3>
-                <UserSignature name={post.user?.name} imageSrc={post.photo?.thumbnailUrl} />
+                <UserSignature name={post.user?.name} imageSrc={post.photo?.thumbnailUrl} userId={post.userId} />
             </div>
         </article >
             : <Skeleton type="articleTile" />
@@ -52,9 +53,9 @@ class Publications extends Component<{}, S> {
                 <Img skeletonize className={styles.PublicationsArticleImage} src={post.photo?.url} alt={post.photo?.title} />
                 <div>
                     <h3 className={'header-3 firstLetterUpper'}>{post.title}</h3>
-                    <UserSignature onWhiteBg name={post.user?.name} imageSrc={post.photo?.thumbnailUrl} />
+                    <UserSignature onWhiteBg name={post.user?.name} imageSrc={post.photo?.thumbnailUrl} userId={post.userId} />
                 </div>
-            </article>) : <Skeleton type="article" count={3}/>);
+            </article>) : <Skeleton type="article" count={3} />);
     }
 
     render() {
@@ -64,7 +65,9 @@ class Publications extends Component<{}, S> {
                 <div className={styles.PublicationsContainer}>
                     <h2 className={'header-2'}>Latest publications</h2>
                     {this.getPosts()}
-                    <Link className={styles.PublicationsMore} to='/'>See more publications</Link>
+                    <Link className={styles.PublicationsMore} to='/'>
+                        <Button label="See more publications" />
+                    </Link>
                 </div>
             </section>
         );

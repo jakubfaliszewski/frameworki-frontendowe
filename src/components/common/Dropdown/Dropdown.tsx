@@ -92,7 +92,7 @@ class Dropdown extends Component<P, S> {
                 </button>
                 {this.state.isListOpen &&
                     <div className={styles.DropdownValues} >
-                        {items.map((v) => <div className={styles.DropdownItem} onClick={() => this.onChange(v.value)}>
+                        {items.map((v, i) => <div key={`dropOpt_${i}`} className={styles.DropdownItem} onClick={() => this.onChange(v.value)}>
                             {v.label}
                         </div>)}
                     </div>

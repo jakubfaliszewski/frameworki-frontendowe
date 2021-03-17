@@ -53,6 +53,21 @@
         background: $fontColorLight;
         margin: 0 $spacing-02;
     }
+
+    .userLink {
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        padding-right: $spacing-01;
+        margin: 0 $spacing-01;
+        .UserAvatar {
+            margin: 0 $spacing-01;
+        }
+
+        &:hover {
+            background: rgba($active, 0.25);
+        }
+    }
 }
 
 
