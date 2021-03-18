@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "title": "Super Corp.",
+        "type": "Contract",
+        "users": 25,
+        "lastUpdate": "2021-03-18",
+        "background": "https://www.gstatic.com/webp/gallery/1.sm.jpg"
+    },
+    {
+        "id": 2,
+        "title": "New investigation",
+        "type": "Contract",
+        "users": 50,
+        "lastUpdate": "2021-03-17",
+        "background": "https://www.gstatic.com/webp/gallery/2.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Interviews",
+        "type": "Corporate",
+        "users": 5,
+        "lastUpdate": "2021-03-16",
+        "background": "https://www.gstatic.com/webp/gallery/3.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Mailing issues",
+        "type": "Norms",
+        "users": 100,
+        "lastUpdate": "2021-03-15",
+        "background": "https://www.gstatic.com/webp/gallery/4.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Frameworks",
+        "type": "Contract",
+        "users": 20,
+        "lastUpdate": "2021-03-14",
+        "background": "https://www.gstatic.com/webp/gallery/5.jpg"
+    }
+]

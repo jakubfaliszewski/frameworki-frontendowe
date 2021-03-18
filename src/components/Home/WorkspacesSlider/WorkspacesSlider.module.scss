@@ -1,0 +1,104 @@
+@import './../../../variables.scss';
+
+.Workspaces {
+    display: flex;
+    overflow-x: auto;
+    box-sizing: border-box;
+    width: 100%;
+    padding: $spacing-02;
+
+    gap: $spacing-03;
+    .tile {
+        z-index: 1;
+        flex-shrink: 0;
+        width: 300px;
+        >
+        div {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            overflow: hidden;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            height: 100%;
+            transition: background 0.24s, transform 0.24s;
+            border-radius: 4px;
+            background: $bg-color-light;
+            box-shadow: $shadow-02;
+        }
+        &Logo {
+            width: 5rem;
+            height: 5rem;
+            margin-right: $spacing-03;
+            padding: $spacing-02;
+            border-radius: 4px;
+            background: $bg-color-light;
+            box-shadow: $shadow-02;
+        }
+
+        &Bg {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5.5rem;
+            background-size: cover;
+        }
+
+        &Content {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            margin-top: 3rem;
+            padding: $spacing-02;
+
+            >
+            time {
+                font-size: 0.85rem;
+                color: $fontColorLight;
+            }
+        }
+
+        &Title {
+            display: flex;
+            align-items: center;
+
+            >
+            h3 {
+                font-size: $font-size-01;
+                color: $fontColor;
+            }
+        }
+
+        &Info {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: $spacing-02 0;
+            color: $fontColorLight;
+            >
+            svg {
+                margin-right: $spacing-01;
+            }
+            .separator {
+                width: 4px;
+                height: 4px;
+                margin: 0 0.5rem;
+                border-radius: 2px;
+                background: #a2a2a2;
+            }
+        }
+
+        &:hover {
+            >
+            div {
+                transform: scale(0.98);
+                background-color: $bg-color-light-hover;
+            }
+        }
+    }
+}

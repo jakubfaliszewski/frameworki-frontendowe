@@ -1,4 +1,6 @@
-import { IComment, IFakeCompany, IPhoto, IPost, IUser } from "./Rest";
+import { IComment, IFakeCompany, IPhoto, IPost, IUser, IWorkspace } from "./Rest";
+
+import workspaces from './../assets/workspaces.json'
 
 const API = 'https://jsonplaceholder.typicode.com';
 
@@ -30,8 +32,10 @@ class RestService {
 
     async getUserProfile(id?: number): Promise<IUser> {
         const user: IUser = await fetch(`${API}/users/${id}`).then(response => response.json());
-        const photo = await this.getUserPhoto(user.id)
-        user.photo = photo;
+        if (Object.keys(user).length !== 0) {
+            const photo = await this.getUserPhoto(user.id)
+            user.photo = photo;
+        }
 
         return user;
     }
@@ -104,6 +108,10 @@ class RestService {
         }));
 
         return address;
+    }
+
+    getWorkspaces(): IWorkspace[] {
+        return workspaces;
     }
 }
 

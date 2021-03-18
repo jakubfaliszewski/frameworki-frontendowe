@@ -2,6 +2,7 @@ import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import React, { Component } from 'react';
 import { VscFeedback, VscRss } from 'react-icons/vsc'
 
+import { BiBuilding } from "react-icons/bi";
 import { IComment } from '../../utils/Rest';
 import Pagination from '../common/Pagination/Pagination';
 import RestService from '../../utils/RestService';

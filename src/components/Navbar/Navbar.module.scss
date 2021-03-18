@@ -13,7 +13,7 @@
     padding: 0 $spacing-02;
     background-color: $bg-color-light;
     box-shadow: $shadow-01;
-    
+
     &Menu {
         display: flex;
         align-items: center;
@@ -30,7 +30,7 @@
     }
 
     &.NavbarHidden {
-        animation: hideNavabr 1s forwards;
+        animation: hideNavabr 0.5s forwards;
 
         @keyframes hideNavabr {
             0% {

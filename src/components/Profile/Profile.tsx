@@ -47,9 +47,13 @@ class Profile extends Component<P, S> {
 
     getProfile(id: number) {
         this.service.getUserProfile(id).then(profile => {
-            this.setState({
-                profile: profile
-            })
+            if(Object.keys(profile).length !== 0) {
+                this.setState({
+                    profile: profile
+                })
+            } else {
+                this.props.history.push('/404');
+            }
         });
     }
 
@@ -73,4 +77,4 @@ class Profile extends Component<P, S> {
     }
 }
 
-export default withRouter(props => <Profile {...props} />);;
+export default withRouter(Profile);

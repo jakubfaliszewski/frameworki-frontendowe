@@ -10,15 +10,17 @@
     padding-top: $spacing-03;
 
     &.MenuHidden {
-        animation: hideMenu 1s forwards;
+        animation: hideMenu 0.5s forwards;
 
         @keyframes hideMenu {
 
             0%{
                 transform: translateX(0);
+                opacity: 1;
             }
             99%{
                 transform: translateX(-15rem);
+                opacity: 0;
             }
             100% {
                 visibility: hidden;
