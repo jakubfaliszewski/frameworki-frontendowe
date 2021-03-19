@@ -14,6 +14,7 @@ import NotFound from "./components/NotFound/NotFound";
 import Profile from "./components/Profile/Profile";
 import { Provider } from 'react-redux';
 import React from 'react';
+import Workspace from "./components/Workspace/Workspace";
 import { store } from './store';
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/profile/:userId",
     component: Profile
+  },
+  {
+    path: "/workspace/:id",
+    component: Workspace
   },
   {
     path: "/entities",

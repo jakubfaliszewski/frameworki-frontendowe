@@ -17,6 +17,7 @@ import Img from '../common/Img/Img';
 import RestService from '../../utils/RestService';
 import { RiSettings3Line } from 'react-icons/ri'
 import Search from '../common/Search/Search';
+import Skeleton from '../common/Skeleton/Skeleton';
 import { connect } from 'react-redux';
 import cx from "classnames";
 import { sortBy } from 'lodash';
@@ -110,6 +111,9 @@ class Entities extends Component<P, S> {
     }
 
     filterEntities(entities: IFakeCompany[]) {
+        if (entities.length === 0) {
+            return null;
+        }
         let entitiesFilterd = [...entities];
         if (this.state.searchValue !== '') {
             const filterString = this.state.searchValue.toLowerCase();
@@ -207,9 +211,10 @@ class Entities extends Component<P, S> {
                         <Dropdown items={dropdownItems} value={dropdownValue} onChange={this.onDropdownChange} />
                     </div>
                 </div>}
-                {this.state.showFilters &&  this.state.showOptions && <EntitiesFilters />}
+                {this.state.showFilters && this.state.showOptions && <EntitiesFilters />}
                 <div className={cx(styles.EntitiesContainer, listMode ? styles.EntitiesContainerList : null)}>
-                    {filteredEntities.length > 0 ? this.getEntitiesUI(filteredEntities) : <h4 className={'header-2 header-indent'}>No matches</h4>}
+                    {!filteredEntities && <Skeleton type="tile" count={30} />}
+                    {filteredEntities && filteredEntities.length > 0 ? this.getEntitiesUI(filteredEntities) : <h4 className={'header-2 header-indent'}>No matches</h4>}
                 </div>
             </section>
         );

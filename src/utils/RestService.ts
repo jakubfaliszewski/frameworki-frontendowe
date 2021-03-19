@@ -110,6 +110,10 @@ class RestService {
         return address;
     }
 
+    getWorkspace(id: number): IWorkspace | undefined {
+        return workspaces.find((v) => v.id === id);
+    }
+
     getWorkspaces(): IWorkspace[] {
         return workspaces;
     }

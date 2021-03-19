@@ -2,10 +2,14 @@ import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import React, { Component } from 'react';
 import { VscFeedback, VscRss } from 'react-icons/vsc'
 
-import { BiBuilding } from "react-icons/bi";
+import { BiBuildings } from "react-icons/bi";
+import Button from '../common/Button/Button';
 import { IComment } from '../../utils/Rest';
+import { IoMdPaper } from 'react-icons/io';
+import { MdPeopleOutline } from "react-icons/md";
 import Pagination from '../common/Pagination/Pagination';
 import RestService from '../../utils/RestService';
+import { RiSurveyLine } from "react-icons/ri";
 import Search from '../common/Search/Search';
 import Skeleton from './../common/Skeleton/Skeleton';
 import WorkTile from '../common/WorkTile/WorkTile';
@@ -14,6 +18,9 @@ import styles from "./Work.module.scss";
 const PAGE_SIZE = 10;
 const WORKS_LIMIT = 200;
 
+type P = {
+    uselessButtons?: boolean
+}
 type S = {
     works: Array<IComment> | null,
     currentPage: number,
@@ -21,10 +28,12 @@ type S = {
     onlyMyWorks: boolean
 }
 
-class Work extends Component<{}, S> {
+class Work extends Component<P, S> {
     service;
-
-    constructor(props: {}) {
+    static defaultProps = {
+        uselessButtons: false,
+    }
+    constructor(props: P) {
         super(props);
         this.service = new RestService();
         this.state = {
@@ -41,7 +50,7 @@ class Work extends Component<{}, S> {
     componentDidMount() {
         this.getWorksFromApi();
     }
-    
+
 
     getWorksFromApi() {
         this.service.getWork(WORKS_LIMIT).then(works => {
@@ -114,6 +123,18 @@ class Work extends Component<{}, S> {
                         <Dropdown className={styles.dropdown} items={dropdownItems} value={dropdownValue} onChange={this.onDropdownChange} />
                     </div>
                 </div>
+                {this.props.uselessButtons &&
+                    <div className={styles.WorkButtons}>
+                        <Button label="All" border />
+                        <Button label="SAS" icon={BiBuildings} border theme="#d5efd5" />
+                        <Button label="SARL" icon={BiBuildings} border theme="#e1fffe" />
+                        <Button label="Secondary business" icon={BiBuildings} border theme="#fff596" />
+                        <Button label="Communities" icon={MdPeopleOutline} border theme="#c3c3c3" />
+                        <Button label="POA" icon={IoMdPaper} border theme="#e4e4e4" />
+                        <Button label="Survey" icon={RiSurveyLine} border />
+                        <Button label="..." border />
+                    </div>
+                }
                 <div className={styles.WorkContainer}>
                     {this.getWorks(filteredWorks)}
                 </div>

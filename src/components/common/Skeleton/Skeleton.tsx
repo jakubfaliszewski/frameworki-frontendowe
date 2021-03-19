@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 type P = {
-    type: "articleTile" | "article" | "work",
+    type: "articleTile" | "article" | "work" | "tile",
     count: number;
 }
 

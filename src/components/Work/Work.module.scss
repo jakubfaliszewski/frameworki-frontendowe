@@ -12,6 +12,13 @@
         }
     }
 
+    &Buttons {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: $spacing-02;
+        gap: $spacing-02;
+    }
+
     .dropdown {
         margin-left: $spacing-03;
         &Item {
