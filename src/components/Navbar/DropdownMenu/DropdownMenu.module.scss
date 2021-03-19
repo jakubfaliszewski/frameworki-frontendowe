@@ -1,0 +1,169 @@
+@import './../../../variables';
+
+
+.DropdownMenu {
+    font-size: 0.85rem;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 14rem;
+    height: 2rem;
+    padding: $spacing-01 $spacing-02;
+    cursor: pointer;
+    transition: color 0.24s, border-color 0.24s;
+    color: $active;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    outline: 0;
+    background: transparent;
+    &Container {
+        position: relative;
+        margin-left: $spacing-04;
+    }
+
+    &Values {
+        font-size: $font-size-02;
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        left: 0;
+        color: $active;
+        border: 2px solid $border;
+        border-top: 0;
+        border-radius: 0 0 4px 4px;
+        background: $bg-color-light;
+
+        backdrop-filter: blur(4px);
+
+        :global {
+            .header-4 {
+                margin-bottom: 0;
+            }
+        }
+
+        hr {
+            margin: 0;
+            border: 0;
+            border-bottom: 1px solid $border;
+        }
+    }
+
+    &Items {
+        &Section {
+            padding: $spacing-01;
+        }
+    }
+
+    &:disabled {
+        background: $bg-color;
+    }
+
+    >
+    svg {
+        font-size: $icon-size-02;
+        flex-shrink: 0;
+        flex-shrink: 0;
+        margin-left: $spacing-01;
+    }
+
+    &:focus {
+        border-color: $border;
+        outline: 0;
+    }
+
+    &.open {
+        border-color: $border;
+        border-bottom-color: transparent;
+        border-radius: 4px 4px 0 0;
+    }
+
+
+    .ripple {
+        position: absolute;
+        transform: scale(0);
+        animation: ripple 600ms linear;
+        border-radius: 50%;
+        background-color: rgba($active, 0.25);
+    }
+
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+    &Icon {
+        width: 2rem;
+        border-radius: 50%;
+        svg {
+            margin: 0;
+        }
+    }
+
+    &Search {
+        margin: $spacing-01 $spacing-01 0;
+    }
+
+    &Item {
+        display: flex;
+        align-items: center;
+        width: auto;
+        padding: $spacing-01;
+        cursor: pointer;
+        color: $fontColor;
+        border: 0;
+        border-radius: 4px;
+        background: none;
+        &:hover,
+        &:focus {
+            outline: 0;
+            background: rgba($active, 0.1);
+        }
+        svg {
+            font-size: $icon-size-03;
+            margin-right: $spacing-03;
+        };
+
+        &.disabled {
+            pointer-events: none;
+        }
+
+        >
+        div {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        &Desc {
+            font-size: $font-size-03;
+            color: $active;
+        }
+    }
+
+    &ValuesContainer {
+        overflow-y: auto;
+        max-height: 16rem;
+    }
+
+    &Logout {
+        >
+        button {
+            color: $fontColorLight;
+            width: 100%;
+        }
+    }
+
+    &UserPhoto {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: $spacing-03;
+
+        border-radius: 50%;
+    }
+}
+
+

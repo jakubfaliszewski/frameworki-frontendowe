@@ -1,12 +1,10 @@
 import { BiBookAlt, BiBuildings } from 'react-icons/bi';
 import { FcBusiness, FcFlowChart, FcSurvey } from "react-icons/fc";
 import React, { Component, RefObject } from 'react';
-import { debounce, identity } from 'lodash';
 import { formatDate, newMomentDate } from '../../../utils/dateUtils';
 
 import { FiUsers } from "react-icons/fi";
 import { IWorkspace } from '../../../utils/Rest';
-import Img from '../../common/Img/Img';
 import { Link } from 'react-router-dom';
 import RestService from '../../../utils/RestService';
 import { RiNewspaperLine } from "react-icons/ri";
@@ -78,7 +76,6 @@ class WorkspacesSlider extends Component<{}, S> {
     mouseUpHandler(e: MouseEvent) {
         e.preventDefault();
         e.stopPropagation();
-        const ele = this.slider.current as HTMLDivElement;
         document.removeEventListener('mousemove', this.mouseMoveHandler);
         document.removeEventListener('mouseup', this.mouseUpHandler);
         
@@ -110,7 +107,7 @@ class WorkspacesSlider extends Component<{}, S> {
     }
 
     getWorkspaceTile(work: IWorkspace) {
-        return <Link className={styles.tile} to={`/workspace/${work.id}`}>
+        return <Link className={styles.tile} to={`/workspace/${work.id}`} key={`ws_${work.id}`}>
             <div>
             <div className={styles.tileBg} style={{ backgroundImage: `url(${work.background})` }}></div>
             <div className={styles.tileContent}>

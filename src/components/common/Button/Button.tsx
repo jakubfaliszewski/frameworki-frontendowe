@@ -61,8 +61,6 @@ class Button extends Component<P, {}> {
             }    
         }
 
-        console.log(colors.color);
-
         return (
             <div className={cx(styles.ButtonContainer, className)} >
                 <button style={colors} disabled={disabled} aria-label={label} type="button" className={cx(styles.Button, iconOnly ? styles.ButtonIcon : null, border ? styles.ButtonBorder : null)} onClick={(ev) => this.onClick(ev)}>

@@ -10,10 +10,6 @@ import styles from "./Menu.module.scss";
 type P = FullscreenState;
 
 class Menu extends Component<P> {
-    
-    constructor(props: P) {
-        super(props);
-    }
     render() {
         return (
             <aside className={cx(styles.Menu, this.props.isFullscreen ? styles.MenuHidden : null)} >

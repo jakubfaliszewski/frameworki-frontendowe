@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import DropdownMenu from './DropdownMenu/DropdownMenu';
 import { FullscreenState } from '../../reducers/FullscreenReducer';
 import { IStore } from '../../store';
 import { Link } from "react-router-dom";
@@ -13,18 +14,14 @@ import styles from "./Navbar.module.scss";
 type P = FullscreenState;
 
 class Navbar extends Component<P> {
-
-    constructor(props: P) {
-        super(props);
-    }
-
     render() {
         return (
             <header className={cx(styles.Navbar, this.props.isFullscreen ? styles.NavbarHidden : null)} >
                 <div className={styles.NavbarMenu}>
                     <Link to="/" className={styles.NavbarLogo}><img src={logo} alt="Website logo" /></Link>
+                    <DropdownMenu />
                 </div>
-                <Search customClass={styles.searchBar} placeholder="Search Legalcluster"/>
+                <Search customClass={styles.searchBar} placeholder="Search Legalcluster" />
                 <NavbarActions />
             </header>
         );

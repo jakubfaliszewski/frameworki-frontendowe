@@ -51,9 +51,9 @@ class UserCard extends Component<RouteComponentProps, S> {
                     </Link >
                     <hr className={styles.UserCardHr} />
                     <div className={styles.UserCardButtons}>
-                        <Button className={styles.ButtonFull} label="Your network" icon={IoIosPeople} />
+                        <Button className={styles.ButtonFull} label="Your network" icon={IoIosPeople} onClick={() => this.goTo('/404')}/>
                         <Button iconOnly icon={IoMdPersonAdd} border />
-                        <Button className={styles.ButtonFull} label="Your publications" icon={IoNewspaperOutline} />
+                        <Button className={styles.ButtonFull} label="Your publications" icon={IoNewspaperOutline} onClick={() => this.goTo('/404')}/>
                         <Button iconOnly icon={IoAdd} border />
                     </div>
                 </div>

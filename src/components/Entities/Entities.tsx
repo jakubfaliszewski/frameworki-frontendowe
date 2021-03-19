@@ -1,11 +1,10 @@
-import { AnyAction, Dispatch, bindActionCreators } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { BsArrowsAngleContract, BsArrowsAngleExpand, BsGridFill, BsList } from 'react-icons/bs';
 import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import { FaSortAlphaUp, FaSortAlphaUpAlt } from 'react-icons/fa';
-import { FullscreenActions, FullscreenReducer, FullscreenState } from './../../reducers/FullscreenReducer';
+import { FullscreenActions, FullscreenState } from './../../reducers/FullscreenReducer';
 import { ISwitcherOption, Switcher } from '../common/Switcher/Switcher';
 import { MdMoreHoriz, MdShare } from 'react-icons/md';
-import { NotificationActions, NotificationReducer } from '../../reducers/NotificationReducer';
 import React, { Component } from 'react';
 import { VscFeedback, VscFilter, VscRss } from 'react-icons/vsc';
 
@@ -14,6 +13,7 @@ import EntitiesFilters from './EntitiesFilters/EntitiesFilters';
 import { IFakeCompany } from '../../utils/Rest';
 import { IStore } from '../../store';
 import Img from '../common/Img/Img';
+import { NotificationActions } from '../../reducers/NotificationReducer';
 import RestService from '../../utils/RestService';
 import { RiSettings3Line } from 'react-icons/ri'
 import Search from '../common/Search/Search';
