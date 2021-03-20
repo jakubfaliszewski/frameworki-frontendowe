@@ -1,14 +1,22 @@
-import { IUser, IUserLocal } from '../../utils/Rest';
+import { IProfile, IUser, IUserLocal } from '../../utils/Rest';
 import React, { Component } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { VscClose, VscEdit, VscSave } from 'react-icons/vsc';
+import { inputDate, newMomentDate } from '../../utils/dateUtils';
 
 import { BsBriefcase } from "react-icons/bs";
 import Button from '../common/Button/Button';
+import Fees from './Fees/Fees';
 import { FiMessageCircle } from "react-icons/fi";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import MainInfo from './MainInfo/MainInfo';
+import PanellInformations from './PanellInformations/PanellInformations';
+import ProfileDetails from './ProfileDetails/ProfileDetails';
+import Proposals from './Proposals/Proposals';
 import RestService from '../../utils/RestService';
+import Reviews from './Reviews/Reviews';
 import styles from "./Profile.module.scss";
+import { v4 as uuid } from "uuid";
 
 interface ProfileParams {
     userId: number;
@@ -17,20 +25,116 @@ interface ProfileParams {
 type P = RouteComponentProps;
 type S = {
     profile: IUser | null
+    profileForm: IProfile
+    profileEdit: boolean
 }
 
 class Profile extends Component<P, S> {
     service = new RestService();
     validTemp: any = {};
-
+    tempProfile: IProfile | null = null;
     constructor(props: P) {
         super(props);
         this.state = {
             profile: null,
+            profileForm: {
+                details: {
+                    expertise: [{ id: uuid(), value: "Merges and acquisition" }],
+                    specialities: [{ id: uuid(), value: "Cross border operation" }, { id: uuid(), value: "Transactions over 500M€/$" }],
+                    admissions: [{ id: uuid(), value: "Paris bar association" }, { id: uuid(), value: "Tunisian bar association" }],
+                    counties: [{ id: uuid(), value: "Tunisia" }]
+                },
+                panelInformations: {
+                    hourlyFee: "610$/hour (Negociated)",
+                    terms: "Attachement_lorem.jpg",
+                    correspondants: [{ id: uuid(), value: "Lorem Kowalski" }, { id: uuid(), value: "Ipsum Nowak"}]
+                },
+                proposals: [{
+                    id: uuid(),
+                    name: "Operation time",
+                    entity: 'Renault Corporation',
+                    location: "France",
+                    expertise: '#Tax',
+                    date: inputDate(newMomentDate('01/20/2018')),
+                    firm: 'Racine'
+                }, {
+                    id: uuid(),
+                    name: "Op. Promtech",
+                    entity: 'Renault HQ',
+                    location: "USA",
+                    expertise: '#M&A',
+                    date: inputDate(newMomentDate('02/18/2019')),
+                    firm: 'Clifford chance'
+                }, {
+                    id: uuid(),
+                    name: "Op. Latandre",
+                    entity: 'Renault Breslau',
+                    location: "Germany",
+                    expertise: '#Social',
+                    date: inputDate(newMomentDate('02/18/2019')),
+                    firm: 'SVZ'
+                }],
+                reviews: [{
+                    id: uuid(),
+                    name: "Operation time",
+                    entity: 'Renault Corporation',
+                    location: "France",
+                    expertise: '#Tax',
+                    date: inputDate(newMomentDate('01/20/2018'))
+                }, {
+                    id: uuid(),
+                    name: "Op. Promtech",
+                    entity: 'Renault HQ',
+                    location: "USA",
+                    expertise: '#M&A',
+                    date: inputDate(newMomentDate('02/18/2019')),
+                }, {
+                    id: uuid(),
+                    name: "Op. Latandre",
+                    entity: 'Renault Breslau',
+                    location: "Germany",
+                    expertise: '#Social',
+                    date: inputDate(newMomentDate('02/18/2019')),
+                }],
+                fees: [{
+                    id: uuid(),
+                    year: 2019,
+                    costCenter: "CS 153",
+                    totalAmount: 3500,
+                    firm: "Clifford chance"
+                }, {
+                    id: uuid(),
+                    year: 2018,
+                    costCenter: "CS 153",
+                    totalAmount: 9500,
+                    firm: "Linklaters"
+                }, {
+                    id: uuid(),
+                    year: 2017,
+                    costCenter: "CS 47",
+                    totalAmount: 10500,
+                    firm: "Linklaters"
+                }, {
+                    id: uuid(),
+                    year: 2017,
+                    costCenter: "CS 153",
+                    totalAmount: 18500,
+                    firm: "Linklaters"
+                }, {
+                    id: uuid(),
+                    year: 2017,
+                    costCenter: "CS 32",
+                    totalAmount: 15500,
+                    firm: "Linklaters"
+                }]
+            },
+            profileEdit: false,
         }
 
         this.getProfile = this.getProfile.bind(this);
         this.changeState = this.changeState.bind(this);
+        this.editProfile = this.editProfile.bind(this);
+        this.cancelEdit = this.cancelEdit.bind(this);
     }
 
     componentDidMount() {
@@ -47,7 +151,7 @@ class Profile extends Component<P, S> {
 
     getProfile(id: number) {
         this.service.getUserProfile(id).then(profile => {
-            if(Object.keys(profile).length !== 0) {
+            if (Object.keys(profile).length !== 0) {
                 this.setState({
                     profile: profile
                 })
@@ -61,9 +165,31 @@ class Profile extends Component<P, S> {
         this.setState(obj);
     }
 
+    editProfile() {
+        this.tempProfile = JSON.parse(JSON.stringify(this.state.profileForm));
+        this.setState({
+            profileEdit: true
+        })
+    }
+
+    cancelEdit() {
+        this.setState({
+            profileEdit: false,
+            profileForm: this.tempProfile as IProfile
+        }, () => {
+            this.tempProfile = null;
+        });
+    }
+    saveProfile() {
+        this.setState({
+            profileEdit: false
+        });
+        this.tempProfile = null;
+    }
+
     render() {
         const profile = this.state.profile as IUserLocal;
-        
+
         return profile
             ? <section className={styles.Profile}>
                 <div className={styles.ProfileHeader}>
@@ -72,6 +198,26 @@ class Profile extends Component<P, S> {
                     <Button className={styles.ProfileHeaderButton} label={"Add to cluster"} icon={BsBriefcase} />
                 </div>
                 <MainInfo profile={profile} changeState={this.changeState} />
+                <hr />
+                <div className={styles.ProfileContent}>
+                    <div className={styles.editHeader}>
+                        {this.state.profileEdit
+                            ? <>
+                                <Button iconOnly className={styles.editButton} disabled={false} icon={VscSave} onClick={() => this.saveProfile()} />
+                                <Button iconOnly className={styles.editButton} icon={VscClose} onClick={this.cancelEdit} />
+                            </>
+                            : <Button iconOnly className={styles.editButton} icon={VscEdit} onClick={this.editProfile} />}
+                    </div>
+                    <ProfileDetails data={this.state.profileForm.details} formActive={this.state.profileEdit} />
+                    <hr />
+                    <PanellInformations data={this.state.profileForm.panelInformations} formActive={this.state.profileEdit} />
+                    <hr />
+                    <Proposals data={this.state.profileForm.proposals} formActive={this.state.profileEdit} />
+                    <hr />
+                    <Reviews data={this.state.profileForm.reviews} formActive={this.state.profileEdit} />
+                    <hr />
+                    <Fees data={this.state.profileForm.fees} formActive={this.state.profileEdit} />
+                </div>
             </section>
             : <div></div>;
     }

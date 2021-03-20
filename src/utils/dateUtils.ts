@@ -8,16 +8,22 @@ function newMomentDate(date: Date | string): Moment {
     return moment(date);
 }
 
-function formatDate(date: Moment = moment(new Date()), fromNow: boolean = false): string | undefined {
+function formatDate(date: Moment = moment(new Date()), fromNow: boolean = false): string {
     if (fromNow) {
        return date.fromNow();
     }
 
-    return date.format('DD MMM YYYY');
+    return date.format('DD MMM YYYY') || '';
+}
+
+function inputDate(date: Moment = moment(new Date())): string {
+
+    return date.format('YYYY-MM-DD') || '';
 }
 
 export {
     getRandomDate,
     newMomentDate,
+    inputDate,
     formatDate
 };

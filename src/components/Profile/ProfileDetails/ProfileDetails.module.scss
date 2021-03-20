@@ -1,0 +1,51 @@
+@import './../../../variables.scss';
+
+.ProfileDetails {
+    padding: $spacing-02 0;
+
+    &Data {
+        .Input {
+            &:not(:last-of-type) {
+                margin-bottom: $spacing-01;
+            }
+        }
+    }
+
+    &Items {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 0 $spacing-02;
+
+        gap: $spacing-02;
+        row-gap: $spacing-01;
+        p {
+            margin: 0;
+            padding: 2px $spacing-01;
+            color: #7d91a1;
+            border-radius: 4px;
+            background-color: #e2f2ff;
+
+            &.empty {
+                background-color: #f7f7f7;
+            }
+        }
+    }
+
+    &Item {
+        display: flex;
+        input {
+            border-radius: 4px 0 0 4px;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            color: white;
+            border: 0;
+            border-radius: 0  4px  4px 0;
+            background-color: $danger;
+        }
+    }
+}

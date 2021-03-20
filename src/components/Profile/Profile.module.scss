@@ -6,7 +6,7 @@
     border-radius: 4px;
     background: $bg-color-light;
     box-shadow: $shadow-02;
-
+    margin-bottom: $spacing-04;
     &Header {
         display: flex;
         justify-content: flex-end;
@@ -27,4 +27,47 @@
             }
         }
     }
+
+    &Content {
+        position: relative;
+
+        :global {
+            .header-3 {
+                margin-bottom: $spacing-05;
+            }
+        }
+    }
+
+}
+
+.table {
+    border-collapse: collapse;
+    tr {
+        &:first-of-type {
+            border-bottom: 1px solid $border;
+        }
+        
+        th, td {
+            text-align: left;
+            &:not(:last-of-type) {
+                padding: $spacing-01 $spacing-03;
+                max-width: 10rem;
+                width: 10rem;
+            }
+            @include truncate();
+
+            &.empty {
+                color: #eaeaea;
+            }
+
+            input {
+                min-width: auto;
+            }
+        }
+    }
+}
+
+hr {
+    border-top: 0;
+    border-bottom: 1px solid $border;
 }

@@ -1,0 +1,47 @@
+@import './../../../variables.scss';
+
+.PanellInformations {
+    padding: $spacing-02 0;
+
+    &Data {
+        :global {
+            .header-5 {
+                font-size: $font-size-02;
+                margin-left: $spacing-02;
+            }
+        }
+    }
+
+    .value {
+        margin-top: $spacing-01;
+        margin-left: $spacing-02;
+    }
+
+    .fileField {
+        margin-top: $spacing-01;
+        margin-bottom: $spacing-04;
+        margin-left: $spacing-02;
+        padding: $spacing-02;
+        border-radius: 4px;
+        background-color: rgba($active, 0.1);
+        input {
+            background: none;
+            margin: 0;
+        }
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+        margin: 0.25rem 0.5rem;
+        padding: $spacing-01 $spacing-02;
+        border-radius: 4px;
+        background-color: rgba($active, 0.1);
+        justify-content: space-between;
+        > div {
+            gap: 2rem;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

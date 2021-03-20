@@ -73,3 +73,56 @@ export interface IWorkspace {
     lastUpdate: string,
     background: string
 }
+
+export interface IProfile {
+    details: {
+        expertise: {
+            id: string,
+            value: string
+        }[]
+        specialities:  {
+            id: string,
+            value: string
+        }[]
+        admissions:  {
+            id: string,
+            value: string
+        }[]
+        counties:  {
+            id: string,
+            value: string
+        }[]
+    },
+    panelInformations: {
+        hourlyFee: string,
+        terms: string,
+        correspondants: {
+            id: string,
+            value: string
+        }[]
+    },
+    proposals: {
+        id: string,
+        name: string,
+        entity: string,
+        location: string,
+        expertise: string,
+        date: string,
+        firm: string,
+    }[],
+    reviews: {
+        id: string,
+        name: string,
+        entity: string,
+        location: string,
+        expertise: string,
+        date: string
+    }[],
+    fees: {
+        id: string,
+        year: number,
+        costCenter: string,
+        totalAmount: number | string,
+        firm: string
+    }[]
+}

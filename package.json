@@ -20,7 +20,7 @@
     "react-scripts": "4.0.3",
     "react-scripts-scss-ts": "^2.17.1",
     "redux": "^4.0.5",
-    "typescript": "^4.2.3",
+    "typescript": "4.2.3",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.0"
   },

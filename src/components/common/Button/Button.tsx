@@ -65,7 +65,7 @@ class Button extends Component<P, {}> {
             <div className={cx(styles.ButtonContainer, className)} >
                 <button style={colors} disabled={disabled} aria-label={label} type="button" className={cx(styles.Button, iconOnly ? styles.ButtonIcon : null, border ? styles.ButtonBorder : null)} onClick={(ev) => this.onClick(ev)}>
                     {Icon ? <Icon style={{color: colors.color}} /> : null}
-                    <p style={{color: colors.color}}>{label}</p>
+                    {label && <p style={{color: colors.color}}>{label}</p>}
                     <span ref={this.ripple} className={styles.ripple}></span>
                 </button>
             </div>

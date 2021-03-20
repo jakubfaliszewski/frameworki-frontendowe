@@ -11,7 +11,8 @@
     border-radius: 4px;
     background: $bg-color-light;
     box-shadow: $shadow-02;
-
+    max-height: 20rem;
+    overflow: auto;
     &::after {
         position: absolute;
         top: -8px;

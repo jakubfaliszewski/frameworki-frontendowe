@@ -12,7 +12,7 @@ type P = {
     placeholder: string,
     required: boolean,
     label: string | undefined,
-    type: 'string' | 'number' | 'email' | 'dropdown' | 'date',
+    type: 'string' | 'number' | 'email' | 'dropdown' | 'date' | 'file',
     value: string | number | undefined,
     values?: string[],
     onChange: Function
@@ -54,12 +54,13 @@ class Field extends Component<P, S> {
 
     onChange(ev: React.ChangeEvent<HTMLInputElement>) {
         if (ev.target.value !== null) {
+            const value = ev.target.value;
             this.setState({
-                value: ev.target.value
+                value: value
             }, () => {
                 if (this.props.onChange) {
                     this.props.onChange({
-                        value: ev.target.value,
+                        value: value,
                         valid: this.input.current?.checkValidity()
                     });
                 }
