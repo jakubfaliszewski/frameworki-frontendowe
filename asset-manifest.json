@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a87fc4c.chunk.css",
-    "main.js": "/static/js/main.6f25d942.chunk.js",
-    "main.js.map": "/static/js/main.6f25d942.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.4b6e6aef.js",
-    "runtime-main.js.map": "/static/js/runtime-main.4b6e6aef.js.map",
-    "static/js/2.a922cf6a.chunk.js": "/static/js/2.a922cf6a.chunk.js",
-    "static/js/2.a922cf6a.chunk.js.map": "/static/js/2.a922cf6a.chunk.js.map",
-    "static/js/3.15e03e1e.chunk.js": "/static/js/3.15e03e1e.chunk.js",
-    "static/js/3.15e03e1e.chunk.js.map": "/static/js/3.15e03e1e.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.4a87fc4c.chunk.css.map": "/static/css/main.4a87fc4c.chunk.css.map",
-    "static/js/2.a922cf6a.chunk.js.LICENSE.txt": "/static/js/2.a922cf6a.chunk.js.LICENSE.txt",
-    "static/media/react-logo.2035ba8b.png": "/static/media/react-logo.2035ba8b.png"
+    "main.css": "/frameworki-frontendowe/static/css/main.4a87fc4c.chunk.css",
+    "main.js": "/frameworki-frontendowe/static/js/main.6f25d942.chunk.js",
+    "main.js.map": "/frameworki-frontendowe/static/js/main.6f25d942.chunk.js.map",
+    "runtime-main.js": "/frameworki-frontendowe/static/js/runtime-main.464e178e.js",
+    "runtime-main.js.map": "/frameworki-frontendowe/static/js/runtime-main.464e178e.js.map",
+    "static/js/2.a922cf6a.chunk.js": "/frameworki-frontendowe/static/js/2.a922cf6a.chunk.js",
+    "static/js/2.a922cf6a.chunk.js.map": "/frameworki-frontendowe/static/js/2.a922cf6a.chunk.js.map",
+    "static/js/3.15e03e1e.chunk.js": "/frameworki-frontendowe/static/js/3.15e03e1e.chunk.js",
+    "static/js/3.15e03e1e.chunk.js.map": "/frameworki-frontendowe/static/js/3.15e03e1e.chunk.js.map",
+    "index.html": "/frameworki-frontendowe/index.html",
+    "static/css/main.4a87fc4c.chunk.css.map": "/frameworki-frontendowe/static/css/main.4a87fc4c.chunk.css.map",
+    "static/js/2.a922cf6a.chunk.js.LICENSE.txt": "/frameworki-frontendowe/static/js/2.a922cf6a.chunk.js.LICENSE.txt",
+    "static/media/react-logo.2035ba8b.png": "/frameworki-frontendowe/static/media/react-logo.2035ba8b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.4b6e6aef.js",
+    "static/js/runtime-main.464e178e.js",
     "static/js/2.a922cf6a.chunk.js",
     "static/css/main.4a87fc4c.chunk.css",
     "static/js/main.6f25d942.chunk.js"
