@@ -3,13 +3,17 @@ import React, { Component } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ActionButton from './../../common/ActionButton/ActionButton';
+import { INotification } from "../../../reducers/NotificationReducer";
 import { IStore } from './../../../store';
 import NavbarNotifications from "./../NavbarNotifications/NavbarNotifications";
-import { NotificationState } from "../../../reducers/NotificationReducer";
 import { connect } from 'react-redux';
 import styles from "./NavbarActions.module.scss";
 
-type P = NotificationState & RouteComponentProps;
+interface StateProps {
+    notifications: INotification[]
+}
+
+type P = StateProps & RouteComponentProps;
 
 type S = {
     postsVisible: boolean
@@ -46,7 +50,7 @@ class NavbarActions extends Component<P, S> {
     }
 
     render() {
-        const notifications = this.props.notifications || [];
+        const notifications = this.props.notifications;
         
         return (
             <>
@@ -55,7 +59,7 @@ class NavbarActions extends Component<P, S> {
                     <ActionButton className={styles.actionBtn} icon={ImBubbles} disabled />
                     <ActionButton className={styles.actionBtn} icon={ImBell} disabled={notifications.length === 0} actions={notifications.length} onClick={this.openPostsNotif} />
                 </div>
-                {this.state.postsVisible && <NavbarNotifications notifications={notifications} closeMethod={this.closePostsNotif}/>}
+                {this.state.postsVisible && <NavbarNotifications closeMethod={this.closePostsNotif}/>}
             </>
         );
     }

@@ -1,7 +1,7 @@
-import { AnyAction, Dispatch, bindActionCreators } from 'redux';
-import { NotificationActions, NotificationReducer, NotificationState } from '../../../reducers/NotificationReducer';
 import React, { Component } from 'react';
 
+import { INotification } from '../../../reducers/NotificationReducer';
+import { IStore } from '../../../store';
 import Img from '../../common/Img/Img';
 import {
     Link
@@ -10,13 +10,20 @@ import { VscClose } from 'react-icons/vsc';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import { formatDate } from './../../../utils/dateUtils';
+import { removeNotification } from '../../../actions/NotificationsActions';
 import styles from "./NavbarNotifications.module.scss";
 
-type P = {
-    notifications: NotificationState["notifications"],
-    closeMethod: Function,
-    dispatch: Dispatch<AnyAction>
+interface StateProps {
+    notifications: INotification[]
 }
+
+interface DispatchProps {
+    removeNotification: (id: string) => void
+}
+
+type P = {
+    closeMethod: Function
+} & StateProps & DispatchProps;
 
 class NavbarNotifications extends Component<P> {
 
@@ -40,11 +47,7 @@ class NavbarNotifications extends Component<P> {
 
     removeNotif(id?: string) {
         if (id) {
-            this.props.dispatch({
-                type: NotificationActions.REMOVE, payload: {
-                    notificationId: id
-                }
-            });
+            this.props.removeNotification(id);
         }
     }
 
@@ -84,10 +87,16 @@ class NavbarNotifications extends Component<P> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
-    return bindActionCreators({
-        ...NotificationReducer
-    }, dispatch);
+const mapStateToProps = (state: IStore) => {
+    return {
+        notifications: state.NotificationReducer.notifications
+    }
 };
 
-export default connect(mapDispatchToProps)(NavbarNotifications);
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        removeNotification: (id: string) => dispatch(removeNotification(id))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarNotifications);

@@ -5,10 +5,11 @@ import { VscClose, VscEdit, VscSave } from "react-icons/vsc";
 
 import Button from './../../common/Button/Button';
 import Field from './../../common/Field/Field';
+import { INotification } from '../../../reducers/NotificationReducer';
 import { IUserLocal } from './../../../utils/Rest';
 import Img from './../../common/Img/Img';
-import { NotificationActions } from '../../../reducers/NotificationReducer';
 import RestService from './../../../utils/RestService';
+import { addNotification } from '../../../actions/NotificationsActions';
 import { connect } from 'react-redux';
 import parentStyles from "./../Profile.module.scss";
 import { set } from 'lodash';
@@ -25,7 +26,7 @@ interface IField {
 
 interface DispatchProps {
     setUser: (id: IUserLocal) => void,
-    dispatch: Dispatch
+    addNotification: (notif: INotification) => void
 }
 
 type P = {
@@ -74,10 +75,10 @@ class MainInfo extends Component<P, S> {
             profileBasicEditMode: false
         }, () => {
             if (this.state.profile) {
-                this.props.dispatch({type: NotificationActions.ADD, payload: {
+                this.props.addNotification({
                     title:`Profile of ${this.state.profile.name} was updated`,
                     user: this.state.profile
-                }});
+                });
                 this.props.setUser(this.state.profile)
                 this.props.changeState({ profile: this.state.profile });
                 this.validTemp = {};
@@ -189,7 +190,7 @@ class MainInfo extends Component<P, S> {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
     return {
         setUser: (user: IUserLocal) => dispatch(setUser(user) as unknown as AnyAction),
-        dispatch: dispatch
+        addNotification: (notif: INotification) => dispatch(addNotification(notif) as unknown as AnyAction)
     };
 };
 

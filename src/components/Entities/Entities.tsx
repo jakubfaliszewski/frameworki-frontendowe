@@ -9,15 +9,15 @@ import { VscFeedback, VscFilter, VscRss } from 'react-icons/vsc';
 
 import Button from '../common/Button/Button';
 import EntitiesFilters from './EntitiesFilters/EntitiesFilters';
-import { FullscreenState } from './../../reducers/FullscreenReducer';
 import { IFakeCompany } from '../../utils/Rest';
+import { INotification } from '../../reducers/NotificationReducer';
 import { IStore } from '../../store';
 import Img from '../common/Img/Img';
-import { NotificationActions } from '../../reducers/NotificationReducer';
 import RestService from '../../utils/RestService';
 import { RiSettings3Line } from 'react-icons/ri'
 import Search from '../common/Search/Search';
 import Skeleton from '../common/Skeleton/Skeleton';
+import { addNotification } from '../../actions/NotificationsActions';
 import { connect } from 'react-redux';
 import cx from "classnames";
 import { sortBy } from 'lodash';
@@ -33,9 +33,17 @@ type S = {
     onlyMyEntities: boolean,
     entities: IFakeCompany[] | []
 }
-type P = {
-    dispatch: Dispatch<AnyAction>
-} & FullscreenState & any;
+
+interface StateProps {
+    isFullscreen: boolean
+}
+
+interface DispatchProps {
+    addNotification: (notif: INotification) => void,
+    switchFullscreen: () => void
+}
+
+type P = DispatchProps & StateProps;
 
 class Entities extends Component<P, S> {
     service;
@@ -134,10 +142,8 @@ class Entities extends Component<P, S> {
 
     share() {
         navigator.clipboard.writeText(window.location.href);
-        this.props.dispatch({
-            type: NotificationActions.ADD, payload: {
-                title: `${window.location.href} coppied to clipboard`
-            }
+        this.props.addNotification({
+           title:  `${window.location.href} coppied to clipboard`
         });
     }
 
@@ -187,7 +193,7 @@ class Entities extends Component<P, S> {
         }
         const dropdownValue = dropdownItems[dropdownItems.findIndex((v) => v.value === onlyMyEntities)];
         const filteredEntities = this.filterEntities(entities ? [...entities] : []);
-        console.log(filteredEntities);
+        
         return (
             <section className={styles.Entities}>
                 <div className={styles.EntitiesHeader}>
@@ -230,10 +236,10 @@ const mapStateToProps = (state: IStore) => {
     }
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
     return {
-        switchFullscreen: () => dispatch(switchFullscreen()),
-        dispatch: dispatch
+        switchFullscreen: () => dispatch(switchFullscreen() as unknown as AnyAction),
+        addNotification: (notif: INotification) => dispatch(addNotification(notif) as unknown as AnyAction)
     };
 };
 
