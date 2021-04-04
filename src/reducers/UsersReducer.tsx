@@ -8,9 +8,14 @@ export interface UsersState {
     }[]
 };
 
+export enum UsersActions {
+    'SET' = 'SET_USER',
+    'GET' = 'GET_USER',
+}
+
 export function users(state: UsersState = { users: [] }, action: AnyAction) {
     switch (action.type) {
-        case 'SET_USER': {
+        case UsersActions.SET: {
             let find = state.users.find(v => v.id === action.user.id);
             if (find?.user) {
                 find.user = action.user;
@@ -18,7 +23,7 @@ export function users(state: UsersState = { users: [] }, action: AnyAction) {
 
             return { ...state, users: [...state.users] }
         }
-        case 'GET_USER': {
+        case UsersActions.GET: {
             let find = state.users.find(v => v?.id === action.users.id);
             if(!find) {
                 return { ...state, users: [...state.users, {

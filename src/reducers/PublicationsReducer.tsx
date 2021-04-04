@@ -5,9 +5,13 @@ export interface PublicationsState {
     publications: IPost[]
 };
 
+export enum PublicationsActions {
+    'GET' = 'GET_PUBLICATIONS',
+}
+
 export function publications(state: PublicationsState = { publications: [] }, action: AnyAction) {
     switch (action.type) {
-        case 'GET_PUBLICATIONS': {
+        case PublicationsActions.GET: {
             return {
                 publications: action.publications
             };

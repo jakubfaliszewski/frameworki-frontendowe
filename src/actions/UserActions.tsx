@@ -1,18 +1,20 @@
+import { UsersActions, UsersState } from "../reducers/UsersReducer";
+
 import { API } from "../utils/restUtils";
 import { Dispatch } from "redux";
+import { IStore } from "../store";
 import { IUserLocal } from "../utils/Rest";
-import { UsersState } from "../reducers/UsersReducer";
 
 export function usersFetchDataSuccess(users: IUserLocal) {
     return {
-        type: 'GET_USER',
+        type: UsersActions.GET,
         users
     };
 }
 
 export function usersSetData(user: IUserLocal) {
     return {
-        type: 'SET_USER',
+        type: UsersActions.SET,
         user
     };
 }
@@ -23,9 +25,10 @@ function getUserPhoto(id: number): Promise<any> {
 }
 
 export function usersFetchData(id: number) {
-    return (dispatch: Dispatch, state: any) => {
+    return (dispatch: Dispatch, stateF: any) => {
+        const state = stateF() as IStore;
         let user: IUserLocal = null;
-        const usersLocal = state().users as UsersState;
+        const usersLocal = state.users as UsersState;
         const userById = usersLocal.users.find(v => v.id === id);
         if (userById) {            
             return dispatch(usersFetchDataSuccess(userById.user));

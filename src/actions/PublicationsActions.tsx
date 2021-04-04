@@ -1,13 +1,14 @@
 import { API, argsToString } from "../utils/restUtils";
+import { PublicationsActions, PublicationsState } from "../reducers/PublicationsReducer";
 
 import { Dispatch } from "redux";
 import { IPost } from "../utils/Rest";
-import { PublicationsState } from "../reducers/PublicationsReducer";
+import { IStore } from "../store";
 import { UsersState } from "../reducers/UsersReducer";
 
 export function publicationsFetchDataSuccess(publications: IPost[]) {
     return {
-        type: 'GET_PUBLICATIONS',
+        type: PublicationsActions.GET,
         publications
     };
 }
@@ -23,9 +24,10 @@ export function publicationsFetchData(limit?: number) {
     };
     const argString = argsToString(args);
 
-    return (dispatch: Dispatch, state: any) => {
-        const publicationsLocal = state().publications as PublicationsState;
-        const users = state().users as UsersState;
+    return (dispatch: Dispatch, stateF: any) => {
+        const state = stateF() as IStore;
+        const publicationsLocal = state.publications as PublicationsState;
+        const users = state.users as UsersState;
         if (publicationsLocal.publications.length > 0) {
             const pubs = publicationsLocal.publications.map((v) => {
                 const userById = users.users.find(user => v.userId === user.id);

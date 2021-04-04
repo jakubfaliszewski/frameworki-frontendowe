@@ -5,9 +5,13 @@ export interface WorksState {
     works: IComment[]
 };
 
+export enum WorksActions {
+    'GET' = 'GET_WORKS',
+}
+
 export function works(state: WorksState = { works: [] }, action: AnyAction) {
     switch (action.type) {
-        case 'GET_WORKS': {
+        case WorksActions.GET: {
             return {
                 works: action.works
             };

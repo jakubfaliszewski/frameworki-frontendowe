@@ -1,20 +1,21 @@
 import { API, argsToString } from "../utils/restUtils";
 import { IComment, IPost } from "../utils/Rest";
+import { WorksActions, WorksState } from "../reducers/WorksReducer";
 
 import { Dispatch } from "redux";
+import { IStore } from "../store";
 import { UsersState } from "../reducers/UsersReducer";
-import { WorksState } from "../reducers/WorksReducer";
 
 export function worksFetchDataSuccess(works: IComment[]) {
     return {
-        type: 'GET_WORKS',
+        type: WorksActions.GET,
         works
     };
 }
 
-async function getPost(id: number, state: any) {
+async function getPost(id: number, state: IStore) {
     const post: IPost = await fetch(`${API}/posts/${id}`).then(response => response.json());
-    const users = state().users as UsersState;
+    const users = state.users as UsersState;
     const userById = users.users.find(v => v.id === post.userId);
     post.user = userById?.user;
     return post;
@@ -25,9 +26,10 @@ export function worksFetchData(limit?: number) {
         '_limit': limit
     };
     const argString = argsToString(args);
-    return (dispatch: Dispatch, state: any) => {
-        const worksLocal = state().works as WorksState;
-        const users = state().users as UsersState;
+    return (dispatch: Dispatch, stateF: any) => {
+        const state = stateF() as IStore;
+        const worksLocal = state.works as WorksState;
+        const users = state.users as UsersState;
         if (worksLocal.works.length > 0) {
             const works = worksLocal.works.map((v) => {
                 const userById = users.users.find(user => v.post?.userId === user.id);
