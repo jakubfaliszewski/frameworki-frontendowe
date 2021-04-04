@@ -14,13 +14,13 @@ type P = {
 }
 
 class ActionButton extends Component<P, {}> {
-    static defaultProps = {
+    static defaultProps: P = {
         className: null,
         icon: null,
         disabled: false,
         text: null,
-        actions: [],
-        onClick: () => null
+        actions: 0,
+        onClick: null
     }
 
     render() {

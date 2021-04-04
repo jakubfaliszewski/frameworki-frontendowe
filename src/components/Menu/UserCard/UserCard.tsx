@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from 'redux';
 import { IoAdd, IoNewspaperOutline } from 'react-icons/io5'
 import { IoIosPeople, IoMdPersonAdd } from 'react-icons/io'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -6,32 +7,30 @@ import React, { Component } from 'react';
 import Button from '../../common/Button/Button';
 import { FaRegBuilding } from 'react-icons/fa'
 import { GiAtom } from 'react-icons/gi'
-import { IUser } from './../../../utils/Rest';
+import { IStore } from './../../../store';
 import Img from '../../common/Img/Img';
-import RestService from '../../../utils/RestService';
+import { UsersState } from '../../../reducers/UsersReducer';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import styles from "./UserCard.module.scss";
+import { usersFetchData } from './../../../actions/UserActions';
 
-type S = {
-    profile?: IUser,
+const USER_ID = 1;
+
+interface StateProps {
+    users: UsersState['users']
 }
 
-class UserCard extends Component<RouteComponentProps, S> {
-    constructor(props: RouteComponentProps) {
-        super(props);
-        this.state = {
-            profile: undefined,
-        }
+interface DispatchProps {
+    fetchData: (id: number) => void
+}
 
-    }
+type P = RouteComponentProps & StateProps & DispatchProps;
+
+class UserCard extends Component<P> {
 
     componentDidMount() {
-        const service = new RestService();
-        service.getUserProfile(1).then(profile => {
-            this.setState({
-                profile: profile
-            })
-        });
+        this.props.fetchData(1);
     }
 
     goTo(route: string) {
@@ -39,7 +38,7 @@ class UserCard extends Component<RouteComponentProps, S> {
     }
 
     render() {
-        const user = this.state.profile;
+        const user = this.props.users.find((v) => v.id === USER_ID)?.user;
 
         return (
             <>
@@ -51,9 +50,9 @@ class UserCard extends Component<RouteComponentProps, S> {
                     </Link >
                     <hr className={styles.UserCardHr} />
                     <div className={styles.UserCardButtons}>
-                        <Button className={styles.ButtonFull} label="Your network" icon={IoIosPeople} onClick={() => this.goTo('/404')}/>
+                        <Button className={styles.ButtonFull} label="Your network" icon={IoIosPeople} onClick={() => this.goTo('/404')} />
                         <Button iconOnly icon={IoMdPersonAdd} border />
-                        <Button className={styles.ButtonFull} label="Your publications" icon={IoNewspaperOutline} onClick={() => this.goTo('/404')}/>
+                        <Button className={styles.ButtonFull} label="Your publications" icon={IoNewspaperOutline} onClick={() => this.goTo('/404')} />
                         <Button iconOnly icon={IoAdd} border />
                     </div>
                 </div>
@@ -67,4 +66,16 @@ class UserCard extends Component<RouteComponentProps, S> {
     }
 }
 
-export default withRouter(UserCard);;
+const mapStateToProps = (state: IStore) => {
+    return {
+        users: state.users.users,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        fetchData: (id: number) => dispatch(usersFetchData(id) as unknown as AnyAction)
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserCard));

@@ -16,11 +16,11 @@ type P = {
 }
 
 class Search extends Component<P, S> {
-    static defaultProps = {
+    static defaultProps: P = {
         customClass: null,
         placeholder: null,
-        onSearchClick: () => null,
-        onChange: () => null
+        onSearchClick: null,
+        onChange: null
     }
 
     searchInput: RefObject<HTMLInputElement> = React.createRef();

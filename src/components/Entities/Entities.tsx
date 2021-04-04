@@ -2,7 +2,6 @@ import { AnyAction, Dispatch } from 'redux';
 import { BsArrowsAngleContract, BsArrowsAngleExpand, BsGridFill, BsList } from 'react-icons/bs';
 import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import { FaSortAlphaUp, FaSortAlphaUpAlt } from 'react-icons/fa';
-import { FullscreenActions, FullscreenState } from './../../reducers/FullscreenReducer';
 import { ISwitcherOption, Switcher } from '../common/Switcher/Switcher';
 import { MdMoreHoriz, MdShare } from 'react-icons/md';
 import React, { Component } from 'react';
@@ -10,6 +9,7 @@ import { VscFeedback, VscFilter, VscRss } from 'react-icons/vsc';
 
 import Button from '../common/Button/Button';
 import EntitiesFilters from './EntitiesFilters/EntitiesFilters';
+import { FullscreenState } from './../../reducers/FullscreenReducer';
 import { IFakeCompany } from '../../utils/Rest';
 import { IStore } from '../../store';
 import Img from '../common/Img/Img';
@@ -22,6 +22,7 @@ import { connect } from 'react-redux';
 import cx from "classnames";
 import { sortBy } from 'lodash';
 import styles from "./Entities.module.scss";
+import { switchFullscreen } from './../../actions/FullscreenActions';
 
 type S = {
     listMode: boolean,
@@ -34,7 +35,7 @@ type S = {
 }
 type P = {
     dispatch: Dispatch<AnyAction>
-} & FullscreenState;
+} & FullscreenState & any;
 
 class Entities extends Component<P, S> {
     service;
@@ -148,9 +149,7 @@ class Entities extends Component<P, S> {
     }
 
     switchFullscreen() {
-        this.props.dispatch({
-            type: FullscreenActions.SWITCH
-        });
+        this.props.switchFullscreen();
     }
 
     getEntitiesUI(entities: IFakeCompany[]) {
@@ -221,9 +220,18 @@ class Entities extends Component<P, S> {
     }
 }
 
-const mapStateToProps = (state: IStore) => ({
-    isFullscreen: state.FullscreenReducer.isFullscreen
-});
+const mapStateToProps = (state: IStore) => {
+    return {
+        isFullscreen: state.FullscreenReducer.isFullscreen
+    }
+};
 
-export default connect(mapStateToProps)(Entities);
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        switchFullscreen: () => dispatch(switchFullscreen()),
+        dispatch: dispatch
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Entities);
 

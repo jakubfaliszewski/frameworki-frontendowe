@@ -15,8 +15,9 @@ import Profile from "./components/Profile/Profile";
 import { Provider } from 'react-redux';
 import React from 'react';
 import Workspace from "./components/Workspace/Workspace";
-import { store } from './store';
+import configureStore from './store';
 
+const store = configureStore();
 const routes = [
   {
     exact: true,

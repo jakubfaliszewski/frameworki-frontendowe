@@ -14,7 +14,10 @@ type P = {
 class Pagination extends Component<P, {}> {
     randomDate = formatDate(getRandomDate());
 
-    static defaultProps = {
+    static defaultProps: P = {
+        pageSize: 0,
+        itemsCount: 0,
+        currentPage: 0,
         onChange: null
     }
 
@@ -29,8 +32,8 @@ class Pagination extends Component<P, {}> {
 
     componentDidUpdate() {
         // change page to the last, if current page is higher than possible
-        if(this.props.currentPage * this.props.pageSize > this.props.itemsCount) {
-            const pageCount = Math.ceil(this.props.itemsCount /  this.props.pageSize);
+        if (this.props.currentPage * this.props.pageSize > this.props.itemsCount) {
+            const pageCount = Math.ceil(this.props.itemsCount / this.props.pageSize);
             this.props.onChange(pageCount - 1);
         }
     }

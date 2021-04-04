@@ -3,18 +3,15 @@ import React, { Component } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ActionButton from './../../common/ActionButton/ActionButton';
-import { IPost } from './../../../utils/Rest';
 import { IStore } from './../../../store';
 import NavbarNotifications from "./../NavbarNotifications/NavbarNotifications";
 import { NotificationState } from "../../../reducers/NotificationReducer";
-import RestService from './../../../utils/RestService';
 import { connect } from 'react-redux';
 import styles from "./NavbarActions.module.scss";
 
 type P = NotificationState & RouteComponentProps;
 
 type S = {
-    posts: Array<IPost>,
     postsVisible: boolean
 }
 
@@ -23,22 +20,12 @@ class NavbarActions extends Component<P, S> {
     constructor(props: P) {
         super(props);
         this.state = {
-            posts: [],
             postsVisible: false
         }
 
         this.goToHome = this.goToHome.bind(this);
         this.openPostsNotif = this.openPostsNotif.bind(this);
         this.closePostsNotif = this.closePostsNotif.bind(this);
-    }
-
-    componentDidMount() {
-        const service = new RestService();
-        service.getPublications(3).then(posts => {
-            this.setState({
-                posts: posts
-            })
-        });
     }
 
     goToHome() {
@@ -59,7 +46,7 @@ class NavbarActions extends Component<P, S> {
     }
 
     render() {
-        const notifications = this.props.notifications;
+        const notifications = this.props.notifications || [];
         
         return (
             <>

@@ -1,23 +1,33 @@
+import { AnyAction, Dispatch } from 'redux';
 import React, { Component } from 'react';
 import { formatDate, getRandomDate } from '../../../utils/dateUtils';
 import { getRandomNumber, isPrime } from '../../../utils/mathUtils';
 
 import { BiBuilding } from "react-icons/bi";
+import { IStore } from '../../../store';
 import Img from '../Img/Img';
 import { Link } from 'react-router-dom';
 import { RiNewspaperLine } from "react-icons/ri";
+import { UsersState } from '../../../reducers/UsersReducer';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import styles from "./UserSignature.module.scss";
+import { usersFetchData } from './../../../actions/UserActions';
+
+interface StateProps {
+    users: UsersState['users']
+}
+
+interface DispatchProps {
+    fetchData: (id: number) => void
+}
 
 type P = {
     className: string,
-    name: string,
-    company: string,
     onWhiteBg: boolean,
-    imageSrc: string,
     userId: number,
     type: 'user' | 'company'
-}
+} & StateProps & DispatchProps
 
 class UserSignature extends Component<P, {}> {
 
@@ -25,19 +35,20 @@ class UserSignature extends Component<P, {}> {
     isCompany: boolean = false;
 
     constructor(props: P) {
-        super(props)
+        super(props);
+        this.props.fetchData(props.userId);
         if (props.type === 'company') {
             this.isCompany = isPrime(getRandomNumber());
         }
     }
 
-    static defaultProps = {
+    static defaultProps: P = {
+        userId: null,
         className: null,
-        name: null,
-        company: null,
         onWhiteBg: false,
-        imageSrc: null,
-        type: 'user'
+        type: 'user',
+        users: [],
+        fetchData: null
     }
 
     renderComType() {
@@ -57,29 +68,34 @@ class UserSignature extends Component<P, {}> {
     }
 
     contentSwitch() {
-        const { name, imageSrc, company, type, userId } = this.props;
+        const { type, userId } = this.props;
+        const user = this.props.users.find(v => v.id === userId)?.user;
+        if (user) {
 
-        switch (type) {
-            case 'user':
-                return <>
-                    <time>{formatDate(this.randomDate)}</time>
-                    <Link to={`/profile/${userId}`} className={styles.userLink}>
-                        <Img skeletonize className={styles.UserAvatar} src={imageSrc} alt={`${name} avatar`} />
-                        <p>{name}</p>
-                    </Link>
-                </>;
-            case 'company':
-                return <>
-                    <Img skeletonize className={styles.UserAvatar} src={imageSrc} alt={`${company} logo`} />
-                    <p>{company}</p>
-                    <div className={styles.separator}></div>
-                    {this.renderComType()}
-                    <div className={styles.separator}></div>
-                    <Link to={`/profile/${userId}`} className={styles.userLink}>
-                        <time>Updated {formatDate(this.randomDate, true)} by {name}</time>
-                    </Link>
-                </>;
+            switch (type) {
+                case 'user':
+                    return <>
+                        <time>{formatDate(this.randomDate)}</time>
+                        <Link to={`/profile/${userId}`} className={styles.userLink}>
+                            <Img skeletonize className={styles.UserAvatar} src={user.photo.thumbnailUrl} alt={`${user.name} avatar`} />
+                            <p>{user.name}</p>
+                        </Link>
+                    </>;
+                case 'company':
+                    return <>
+                        <Img skeletonize className={styles.UserAvatar} src={user.photo.thumbnailUrl} alt={`${user.company.name} logo`} />
+                        <p>{user.company.name}</p>
+                        <div className={styles.separator}></div>
+                        {this.renderComType()}
+                        <div className={styles.separator}></div>
+                        <Link to={`/profile/${userId}`} className={styles.userLink}>
+                            <time>Updated {formatDate(this.randomDate, true)} by {user.name}</time>
+                        </Link>
+                    </>;
+            }
         }
+
+        return null;
     }
 
 
@@ -94,4 +110,16 @@ class UserSignature extends Component<P, {}> {
     }
 }
 
-export default UserSignature;
+const mapStateToProps = (state: IStore) => {
+    return {
+        users: state.users.users,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        fetchData: (id: number) => dispatch(usersFetchData(id) as unknown as AnyAction)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSignature);

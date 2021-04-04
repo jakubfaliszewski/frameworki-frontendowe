@@ -1,18 +1,10 @@
-import { IComment, IFakeCompany, IPhoto, IPost, IUser, IWorkspace } from "./Rest";
+import { IFakeCompany, IPhoto, IPost, IUser, IWorkspace } from "./Rest";
 
 import workspaces from './../assets/workspaces.json'
 
 const API = 'https://jsonplaceholder.typicode.com';
 
 class RestService {
-
-    private _statusToText(status: number): void {
-
-        switch (status) {
-            case 200: console.info("OK!"); break;
-            default: console.error("Something went berserk, sorry!")
-        }
-    }
 
     private _argsToString(args: object): string {
         let argsString: string = '?';
@@ -40,27 +32,6 @@ class RestService {
         return user;
     }
 
-    setUserProfile(id: number, data: IUser): void {
-        fetch(`${API}/users/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            }
-        })
-            .then((response) => {
-                return this._statusToText(response.status);
-            })
-    }
-
-    async getPost(id?: number): Promise<IPost> {
-        const post: IPost = await fetch(`${API}/posts/${id}`).then(response => response.json());
-        const user = await this.getUserProfile(post.userId)
-        post.user = user;
-
-        return post;
-    }
-
     async getPublications(limit?: number): Promise<Array<IPost>> {
         const args = {
             '_limit': limit
@@ -75,21 +46,6 @@ class RestService {
         }));
 
         return postsWithRel;
-    }
-
-    async getWork(limit?: number): Promise<Array<IComment>> {
-        const args = {
-            '_limit': limit
-        };
-        const argString = this._argsToString(args);
-        const comments: Array<IComment> = await fetch(`${API}/comments${argString}`).then(response => response.json());
-        const commentsWithRel = Promise.all(comments.map(async (comment) => {
-            comment.post = await this.getPost(comment.postId).then(response => response);
-
-            return comment;
-        }));
-
-        return commentsWithRel;
     }
 
     async getFakeCompanies(): Promise<Array<IFakeCompany>> {

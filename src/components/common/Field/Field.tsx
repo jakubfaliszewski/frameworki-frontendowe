@@ -11,7 +11,7 @@ type P = {
     customClass: string,
     placeholder: string,
     required: boolean,
-    label: string | undefined,
+    label?: string,
     type: 'string' | 'number' | 'email' | 'dropdown' | 'date' | 'file',
     value: string | number | undefined,
     values?: string[],
@@ -19,12 +19,14 @@ type P = {
 }
 
 class Field extends Component<P, S> {
-    static defaultProps = {
+    static defaultProps: P = {
         required: false,
+        type: 'string',
+        value: null,
         customClass: null,
         placeholder: null,
         values: [],
-        onChange: () => null
+        onChange: null
     }
 
     input: RefObject<HTMLInputElement> = React.createRef();

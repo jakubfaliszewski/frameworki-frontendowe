@@ -1,4 +1,4 @@
-import { IProfile, IUser, IUserLocal } from '../../utils/Rest';
+import { AnyAction, Dispatch } from 'redux';
 import React, { Component } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { VscClose, VscEdit, VscSave } from 'react-icons/vsc';
@@ -9,22 +9,33 @@ import Button from '../common/Button/Button';
 import Fees from './Fees/Fees';
 import { FiMessageCircle } from "react-icons/fi";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { IProfile } from '../../utils/Rest';
+import { IStore } from '../../store';
 import MainInfo from './MainInfo/MainInfo';
 import PanellInformations from './PanellInformations/PanellInformations';
 import ProfileDetails from './ProfileDetails/ProfileDetails';
 import Proposals from './Proposals/Proposals';
 import RestService from '../../utils/RestService';
 import Reviews from './Reviews/Reviews';
+import { UsersState } from '../../reducers/UsersReducer';
+import { connect } from 'react-redux';
 import styles from "./Profile.module.scss";
+import { usersFetchData } from '../../actions/UserActions';
 import { v4 as uuid } from "uuid";
 
 interface ProfileParams {
     userId: number;
 }
 
-type P = RouteComponentProps;
+interface StateProps {
+    users: UsersState['users']
+}
+
+interface DispatchProps {
+    fetchData: (id: number) => void
+}
+type P = RouteComponentProps & StateProps & DispatchProps;
 type S = {
-    profile: IUser | null
     profileForm: IProfile
     profileEdit: boolean
 }
@@ -36,7 +47,6 @@ class Profile extends Component<P, S> {
     constructor(props: P) {
         super(props);
         this.state = {
-            profile: null,
             profileForm: {
                 details: {
                     expertise: [{ id: uuid(), value: "Merges and acquisition" }],
@@ -144,21 +154,15 @@ class Profile extends Component<P, S> {
 
     componentDidUpdate() {
         const userId = Number((this.props.match.params as ProfileParams).userId);
-        if (this.state.profile?.id !== userId) {
+        const profile = this.props.users.find(v => v.id === userId)?.user;
+
+        if (profile?.id !== userId) {
             this.getProfile(userId);
         }
     }
 
     getProfile(id: number) {
-        this.service.getUserProfile(id).then(profile => {
-            if (Object.keys(profile).length !== 0) {
-                this.setState({
-                    profile: profile
-                })
-            } else {
-                this.props.history.push('/404');
-            }
-        });
+        this.props.fetchData(id);
     }
 
     changeState(obj: any) {
@@ -188,7 +192,8 @@ class Profile extends Component<P, S> {
     }
 
     render() {
-        const profile = this.state.profile as IUserLocal;
+        const userId = Number((this.props.match.params as ProfileParams).userId);
+        const profile = this.props.users.find(v => v.id === userId)?.user;
 
         return profile
             ? <section className={styles.Profile}>
@@ -223,4 +228,16 @@ class Profile extends Component<P, S> {
     }
 }
 
-export default withRouter(Profile);
+const mapStateToProps = (state: IStore) => {
+    return {
+        users: state.users.users,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        fetchData: (id: number) => dispatch(usersFetchData(id) as unknown as AnyAction)
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));

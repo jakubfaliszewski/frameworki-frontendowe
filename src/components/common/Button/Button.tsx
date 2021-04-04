@@ -19,14 +19,14 @@ type P = {
 class Button extends Component<P, {}> {
     ripple: RefObject<HTMLSpanElement> = React.createRef();
 
-    static defaultProps = {
+    static defaultProps: P = {
         label: null,
         icon: null,
         iconOnly: false,
         className: null,
         disabled: false,
         border: false,
-        onClick: () => null
+        onClick: null
     }
 
     onClick(ev: React.MouseEvent) {

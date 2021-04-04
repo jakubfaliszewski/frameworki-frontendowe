@@ -14,7 +14,7 @@ type S = {
 }
 
 type P = {
-    items: IDropdownItem[],
+    items?: IDropdownItem[],
     onChange?: Function,
     value?: IDropdownItem
     disabled?: boolean,
@@ -24,10 +24,10 @@ type P = {
 class Dropdown extends Component<P, S> {
     ripple: RefObject<HTMLSpanElement> = React.createRef();
 
-    static defaultProps = {
+    static defaultProps: P = {
         disabled: false,
         className: null,
-        onChange: () => null,
+        onChange: null
     }
 
     constructor(props: P) {

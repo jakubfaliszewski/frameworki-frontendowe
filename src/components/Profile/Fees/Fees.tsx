@@ -81,11 +81,11 @@ class Fees extends Component<P, S> {
         if (active) {
             return <>
                 <table className={parentStyles.table}>
-                    <tr><>
-                        {headers.map((v, i) => <th key={i}>{v}</th>)}
-                        <th></th>
-                    </></tr>
-                    <>
+                    <tbody>
+                        <tr>
+                            {headers.map((v, i) => <th key={i}>{v}</th>)}
+                            <th></th>
+                        </tr>
                         {rows.map((row, parentIndex) => <tr><>
                             {row.map((val, i) =>
                                 <td>
@@ -94,7 +94,7 @@ class Fees extends Component<P, S> {
                             )}
                             <td> <Button iconOnly icon={IoClose} onClick={() => this.removeRow(parentIndex)} /></td>
                         </></tr>)}
-                    </>
+                    </tbody>
                 </table>
                 <Button label="Add new row" icon={IoAdd} onClick={() => this.addRow()} />
             </>;
@@ -121,16 +121,16 @@ class Fees extends Component<P, S> {
 
         return newRows.length > 0
             ? <table className={parentStyles.table}>
-                <tr>
-                    {headers.map((v, i) => <th key={`header${i}`}>{v}</th>)}
-                </tr>
-                <>
+                <tbody>
+                    <tr>
+                        {headers.map((v, i) => <th key={`header${i}`}>{v}</th>)}
+                    </tr>
                     {newRows.map((row, i) => <tr key={`tr_${i}`}>
                         {row.map((val, chI) => <td key={`td_${i}_${chI}`} className={!val ? parentStyles.empty : ''}>
                             {val || 'empty'}
                         </td>)}
                     </tr>)}
-                </>
+                </tbody>
             </table>
             : <p>No items</p>;
     }

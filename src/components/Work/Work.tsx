@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from 'redux';
 import { Dropdown, IDropdownItem } from '../common/Dropdown/Dropdown';
 import React, { Component } from 'react';
 import { VscFeedback, VscRss } from 'react-icons/vsc'
@@ -5,6 +6,7 @@ import { VscFeedback, VscRss } from 'react-icons/vsc'
 import { BiBuildings } from "react-icons/bi";
 import Button from '../common/Button/Button';
 import { IComment } from '../../utils/Rest';
+import { IStore } from '../../store';
 import { IoMdPaper } from 'react-icons/io';
 import { MdPeopleOutline } from "react-icons/md";
 import Pagination from '../common/Pagination/Pagination';
@@ -13,16 +15,26 @@ import { RiSurveyLine } from "react-icons/ri";
 import Search from '../common/Search/Search';
 import Skeleton from './../common/Skeleton/Skeleton';
 import WorkTile from '../common/WorkTile/WorkTile';
+import { WorksState } from '../../reducers/WorksReducer';
+import { connect } from 'react-redux';
 import styles from "./Work.module.scss";
+import { worksFetchData } from '../../actions/WorksActions';
 
 const PAGE_SIZE = 10;
 const WORKS_LIMIT = 200;
 
+interface StateProps {
+    works: WorksState['works']
+}
+
+interface DispatchProps {
+    fetchData: (limit: number) => void
+}
+
 type P = {
     uselessButtons?: boolean
-}
+} & StateProps & DispatchProps
 type S = {
-    works: Array<IComment> | null,
     currentPage: number,
     searchValue: string,
     onlyMyWorks: boolean
@@ -37,7 +49,6 @@ class Work extends Component<P, S> {
         super(props);
         this.service = new RestService();
         this.state = {
-            works: null,
             searchValue: '',
             onlyMyWorks: false,
             currentPage: 0
@@ -48,16 +59,7 @@ class Work extends Component<P, S> {
     }
 
     componentDidMount() {
-        this.getWorksFromApi();
-    }
-
-
-    getWorksFromApi() {
-        this.service.getWork(WORKS_LIMIT).then(works => {
-            this.setState({
-                works: works
-            })
-        });
+        this.props.fetchData(WORKS_LIMIT);
     }
 
     changePage(index: number) {
@@ -92,19 +94,21 @@ class Work extends Component<P, S> {
     }
 
     getWorks(filteredWorks: IComment[]) {
+        const { works } = this.props;
         const range = this.state.currentPage * PAGE_SIZE;
 
-        return (this.state.works && filteredWorks.length > 0
+        return (works && filteredWorks.length > 0
             ? filteredWorks.slice(range, range + PAGE_SIZE).map((work, i) =>
                 <WorkTile key={`work_${work.id}`} work={work} />)
-            : !this.state.works && filteredWorks.length === 0
+            : works.length === 0 && filteredWorks.length === 0
                 ? <Skeleton type="work" count={10} />
                 : <h4 className={'header-2 header-indent'}>No matches</h4>);
     }
 
     render() {
-        const { works, currentPage } = this.state;
-        const filteredWorks = this.filterRows(this.state.works ? [...this.state.works] : []);
+        const { currentPage } = this.state;
+        const { works } = this.props;
+        const filteredWorks = this.filterRows(works ? [...works] : []);
         const dropdownItems: IDropdownItem[] = [{
             label: <div className={styles.dropdownItem}><VscFeedback /> My items</div>,
             value: true
@@ -146,4 +150,16 @@ class Work extends Component<P, S> {
     }
 }
 
-export default Work;
+const mapStateToProps = (state: IStore) => {
+    return {
+        works: state.works.works,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        fetchData: (id: number) => dispatch(worksFetchData(id) as unknown as AnyAction)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Work);

@@ -1,5 +1,4 @@
-import { AnyAction, Dispatch, bindActionCreators } from 'redux';
-import { NotificationActions, NotificationReducer } from '../../../reducers/NotificationReducer';
+import { AnyAction, Dispatch } from 'redux';
 import React, { Component } from 'react';
 import { RiBriefcase4Line, RiNewspaperLine } from "react-icons/ri";
 import { VscClose, VscEdit, VscSave } from "react-icons/vsc";
@@ -8,10 +7,12 @@ import Button from './../../common/Button/Button';
 import Field from './../../common/Field/Field';
 import { IUserLocal } from './../../../utils/Rest';
 import Img from './../../common/Img/Img';
+import { NotificationActions } from '../../../reducers/NotificationReducer';
 import RestService from './../../../utils/RestService';
 import { connect } from 'react-redux';
 import parentStyles from "./../Profile.module.scss";
 import { set } from 'lodash';
+import { setUser } from './../../../actions/UserActions';
 import styles from "./MainInfo.module.scss";
 
 interface IField {
@@ -22,11 +23,15 @@ interface IField {
     values?: string[]
 }
 
+interface DispatchProps {
+    setUser: (id: IUserLocal) => void,
+    dispatch: Dispatch
+}
+
 type P = {
     profile: IUserLocal,
-    changeState: Function,
-    dispatch: Dispatch<AnyAction>
-}
+    changeState: Function
+} & DispatchProps
 
 type S = {
     profile: IUserLocal,
@@ -51,7 +56,7 @@ class MainInfo extends Component<P, S> {
     }
 
     componentDidUpdate() {
-        if(this.state.profile.id !== this.props.profile.id) {
+        if (this.state.profile.id !== this.props.profile.id) {
             this.setState({
                 profile: this.props.profile
             })
@@ -65,7 +70,6 @@ class MainInfo extends Component<P, S> {
     }
 
     saveBasics() {
-        const userId = this.props.profile.id;
         this.setState({
             profileBasicEditMode: false
         }, () => {
@@ -74,7 +78,7 @@ class MainInfo extends Component<P, S> {
                     title:`Profile of ${this.state.profile.name} was updated`,
                     user: this.state.profile
                 }});
-                this.service.setUserProfile(userId, this.state.profile);
+                this.props.setUser(this.state.profile)
                 this.props.changeState({ profile: this.state.profile });
                 this.validTemp = {};
             }
@@ -181,10 +185,12 @@ class MainInfo extends Component<P, S> {
     }
 }
 
+
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
-    return bindActionCreators({
-        ...NotificationReducer
-    }, dispatch);
+    return {
+        setUser: (user: IUserLocal) => dispatch(setUser(user) as unknown as AnyAction),
+        dispatch: dispatch
+    };
 };
 
-export default connect(mapDispatchToProps)(MainInfo);
+export default connect(null, mapDispatchToProps)(MainInfo);

@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from 'redux';
 import { FaBuilding, FaCrown, FaFileContract, FaRegBuilding, FaUserLock } from 'react-icons/fa';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import React, { Component, ReactElement, RefObject } from 'react';
@@ -6,17 +7,19 @@ import { BiBook } from 'react-icons/bi';
 import { BsPeople } from 'react-icons/bs';
 import Button from '../../common/Button/Button';
 import { FiLogOut } from 'react-icons/fi';
-import { IUser } from '../../../utils/Rest';
+import { IStore } from '../../../store';
 import { ImHome } from 'react-icons/im';
 import Img from '../../common/Img/Img';
 import { IoNewspaperOutline } from 'react-icons/io5';
 import { MdArrowDropDown } from 'react-icons/md';
-import RestService from '../../../utils/RestService';
 import { RiUserSettingsFill } from 'react-icons/ri';
 import Search from '../../common/Search/Search';
+import { UsersState } from '../../../reducers/UsersReducer';
 import { VscQuestion } from 'react-icons/vsc';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import styles from "./DropdownMenu.module.scss";
+import { usersFetchData } from '../../../actions/UserActions';
 
 interface IMenuItem {
     title: string,
@@ -28,20 +31,28 @@ interface IMenuItem {
     }[]
 }
 
+interface StateProps {
+    users: UsersState['users']
+}
+
+interface DispatchProps {
+    fetchData: (id: number) => void
+}
+
+type P = RouteComponentProps & StateProps & DispatchProps;
+
 type S = {
     isListOpen: boolean,
-    profile?: IUser,
     searchValue: string
 }
 
-class DropdownMenu extends Component<RouteComponentProps, S> {
+class DropdownMenu extends Component<P, S> {
     ripple: RefObject<HTMLSpanElement> = React.createRef();
 
-    constructor(props: RouteComponentProps) {
+    constructor(props: P) {
         super(props);
         this.state = {
             isListOpen: false,
-            profile: undefined,
             searchValue: ''
         }
 
@@ -51,12 +62,7 @@ class DropdownMenu extends Component<RouteComponentProps, S> {
     }
 
     componentDidMount() {
-        const service = new RestService();
-        service.getUserProfile(1).then(profile => {
-            this.setState({
-                profile: profile
-            })
-        });
+        this.props.fetchData(1);
     }
 
     changeSearch(val: string) {
@@ -116,6 +122,8 @@ class DropdownMenu extends Component<RouteComponentProps, S> {
     }
 
     render() {
+        const user = this.props.users.find((v) => v.id === 1)?.user;
+
         const menuItems: IMenuItem[] = [{
             title: "Platform",
             items: [{
@@ -166,9 +174,9 @@ class DropdownMenu extends Component<RouteComponentProps, S> {
         const accountItems = {
             title: "Account",
             items: [{
-                name: this.state.profile?.name || '',
+                name: user?.name || '',
                 description: 'See profile',
-                icon: <Img className={styles.DropdownMenuUserPhoto} src={this.state.profile?.photo?.thumbnailUrl} />,
+                icon: <Img className={styles.DropdownMenuUserPhoto} src={user?.photo?.thumbnailUrl} />,
                 route: '/profile/1'
             }, {
                 name: 'Privacy',
@@ -229,4 +237,16 @@ class DropdownMenu extends Component<RouteComponentProps, S> {
     }
 }
 
-export default withRouter(DropdownMenu);
+const mapStateToProps = (state: IStore) => {
+    return {
+        users: state.users.users,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        fetchData: (id: number) => dispatch(usersFetchData(id) as unknown as AnyAction)
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DropdownMenu));
