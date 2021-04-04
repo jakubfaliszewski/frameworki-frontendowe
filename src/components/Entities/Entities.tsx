@@ -187,6 +187,7 @@ class Entities extends Component<P, S> {
         }
         const dropdownValue = dropdownItems[dropdownItems.findIndex((v) => v.value === onlyMyEntities)];
         const filteredEntities = this.filterEntities(entities ? [...entities] : []);
+        console.log(filteredEntities);
         return (
             <section className={styles.Entities}>
                 <div className={styles.EntitiesHeader}>
@@ -213,7 +214,10 @@ class Entities extends Component<P, S> {
                 {this.state.showFilters && this.state.showOptions && <EntitiesFilters />}
                 <div className={cx(styles.EntitiesContainer, listMode ? styles.EntitiesContainerList : null)}>
                     {!filteredEntities && <Skeleton type="tile" count={30} />}
-                    {filteredEntities && filteredEntities.length > 0 ? this.getEntitiesUI(filteredEntities) : <h4 className={'header-2 header-indent'}>No matches</h4>}
+                    {filteredEntities && filteredEntities.length === 0
+                        ? <h4 className={'header-2 header-indent'}>No matches</h4>
+                        : filteredEntities && this.getEntitiesUI(filteredEntities)
+                    }
                 </div>
             </section>
         );

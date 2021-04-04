@@ -62,7 +62,7 @@ class NavbarNotifications extends Component<P> {
                 </Link>
                 : <div className={styles.post}>
                     <div>
-                        <h5 className={cx(styles.postTitle, 'header-5')}>{notif.title}</h5>
+                        <h5 className={cx(styles.postTitle, 'header-5')} title={notif.title}>{notif.title}</h5>
                         <time className={styles.postTime}>{formatDate(notif.time, true)}</time>
                     </div>
                 </div>}
