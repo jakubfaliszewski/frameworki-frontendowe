@@ -18,7 +18,7 @@ class Pagination extends Component<P, {}> {
         pageSize: 0,
         itemsCount: 0,
         currentPage: 0,
-        onChange: null
+        onChange: () => null as Function
     }
 
     getButton(index: number) {

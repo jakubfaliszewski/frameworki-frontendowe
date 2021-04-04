@@ -26,7 +26,7 @@ class Button extends Component<P, {}> {
         className: null,
         disabled: false,
         border: false,
-        onClick: null
+        onClick: () => null as Function
     }
 
     onClick(ev: React.MouseEvent) {

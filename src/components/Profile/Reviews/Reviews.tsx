@@ -89,9 +89,9 @@ class Reviews extends Component<P, S> {
                             {headers.map((v, i) => <th key={i}>{v}</th>)}
                             <th></th>
                         </tr>
-                        {rows.map((row, parentIndex) => <tr>
+                        {rows.map((row, parentIndex) => <tr key={parentIndex}>
                             {row.map((val, i) =>
-                                <td>
+                                <td key={i}>
                                     <Field key={`item_${this.state.data[parentIndex].id}`} label={headers[i]} type={tab[i].type} value={val} onChange={(e: { value: string, valid: boolean }) => this.onInputChange(e, tab[i].stateKey, parentIndex)} />
                                 </td>
                             )}

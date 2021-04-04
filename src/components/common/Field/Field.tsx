@@ -26,7 +26,7 @@ class Field extends Component<P, S> {
         customClass: null,
         placeholder: null,
         values: [],
-        onChange: null
+        onChange: () => null as Function
     }
 
     input: RefObject<HTMLInputElement> = React.createRef();

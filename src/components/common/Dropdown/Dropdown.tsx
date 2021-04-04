@@ -27,7 +27,7 @@ class Dropdown extends Component<P, S> {
     static defaultProps: P = {
         disabled: false,
         className: null,
-        onChange: null
+        onChange: () => null as Function
     }
 
     constructor(props: P) {

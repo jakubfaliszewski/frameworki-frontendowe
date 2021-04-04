@@ -80,7 +80,7 @@ class ProfileDetails extends Component<P, S> {
                 <form className={styles.ProfileDetailsItems} key={`form_${field.stateKey}_${index}`} >
                     <>
                         {field.values.map((item, i) => <div className={styles.ProfileDetailsItem} key={item.id}>
-                            <Field key={`field_${field.stateKey}_${index}`} label={field.label} type="string" value={item.value} onChange={(e: { value: string, valid: boolean }) => this.onInputChange(e, field.stateKey, i)} />
+                            <Field key={`field_${field.stateKey}_${item.id}`} label={field.label} type="string" value={item.value} onChange={(e: { value: string, valid: boolean }) => this.onInputChange(e, field.stateKey, i)} />
                             <button type="button" onClick={() => this.removeItem(field.stateKey, item.id)}><IoClose /></button>
                         </div>)}
                         <Button icon={IoAdd} iconOnly onClick={() => this.addItem(field.stateKey)} />
@@ -93,7 +93,7 @@ class ProfileDetails extends Component<P, S> {
             <p className="header-4" key={`staticField_${i}`} >{field.label}</p>
             <div className={styles.ProfileDetailsItems} key={`staticVals_${i}`}>
                 {field.values.length > 0
-                    ? field.values.map((item, innerI) => item && <p key={`staticField_${i}_${innerI}`}>{item.value}</p>)
+                    ? field.values.map((item) => item && <p key={`staticField_${i}_${item.id}`}>{item.value}</p>)
                     : <p className={styles.empty}>No items</p>}
             </div>
         </div>)

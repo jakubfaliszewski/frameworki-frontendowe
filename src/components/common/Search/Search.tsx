@@ -19,8 +19,8 @@ class Search extends Component<P, S> {
     static defaultProps: P = {
         customClass: null,
         placeholder: null,
-        onSearchClick: null,
-        onChange: null
+        onSearchClick: () => null as Function,
+        onChange: () => null as Function
     }
 
     searchInput: RefObject<HTMLInputElement> = React.createRef();

@@ -20,7 +20,7 @@ class ActionButton extends Component<P, {}> {
         disabled: false,
         text: null,
         actions: 0,
-        onClick: null
+        onClick: () => null as Function
     }
 
     render() {
