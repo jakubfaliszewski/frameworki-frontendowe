@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/frameworki-frontendowe/static/css/main.4a87fc4c.chunk.css",
+    "main.css": "/frameworki-frontendowe/static/css/main.8d70a022.chunk.css",
     "main.js": "/frameworki-frontendowe/static/js/main.95551adb.chunk.js",
     "main.js.map": "/frameworki-frontendowe/static/js/main.95551adb.chunk.js.map",
     "runtime-main.js": "/frameworki-frontendowe/static/js/runtime-main.0d36e404.js",
@@ -10,14 +10,14 @@
     "static/js/3.dde8e252.chunk.js": "/frameworki-frontendowe/static/js/3.dde8e252.chunk.js",
     "static/js/3.dde8e252.chunk.js.map": "/frameworki-frontendowe/static/js/3.dde8e252.chunk.js.map",
     "index.html": "/frameworki-frontendowe/index.html",
-    "static/css/main.4a87fc4c.chunk.css.map": "/frameworki-frontendowe/static/css/main.4a87fc4c.chunk.css.map",
+    "static/css/main.8d70a022.chunk.css.map": "/frameworki-frontendowe/static/css/main.8d70a022.chunk.css.map",
     "static/js/2.80d7bb31.chunk.js.LICENSE.txt": "/frameworki-frontendowe/static/js/2.80d7bb31.chunk.js.LICENSE.txt",
     "static/media/react-logo.2035ba8b.png": "/frameworki-frontendowe/static/media/react-logo.2035ba8b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0d36e404.js",
     "static/js/2.80d7bb31.chunk.js",
-    "static/css/main.4a87fc4c.chunk.css",
+    "static/css/main.8d70a022.chunk.css",
     "static/js/main.95551adb.chunk.js"
   ]
 }
