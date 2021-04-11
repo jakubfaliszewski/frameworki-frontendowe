@@ -25,14 +25,14 @@
         margin: $spacing-02;
         color: $fontColorLight;
     }
-    
+
     &-5 {
         font-size: $font-size-03;
         font-weight: bold;
         margin: 0;
         color: $fontColor;
     }
-    
+
     &-sub {
         font-size: $font-size-02;
         margin: $spacing-02;
@@ -126,3 +126,22 @@ img.img-skeleton {
     }
 }
 
+// custom scrollbars
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: $bg-color-light;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: $fontColorLight;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $fontColor;
+}
