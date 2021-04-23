@@ -1,8 +1,7 @@
 import { IFakeCompany, IPhoto, IPost, IUser, IWorkspace } from "./Rest";
 
+import { API } from "./restUtils";
 import workspaces from './../assets/workspaces.json'
-
-const API = 'https://jsonplaceholder.typicode.com';
 
 class RestService {
 

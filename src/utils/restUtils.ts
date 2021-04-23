@@ -1,4 +1,4 @@
-const API = 'https://jsonplaceholder.typicode.com';
+const API = 'https://jsonplaceholder.cypress.io';
 
 function argsToString(args: object): string {
     let argsString: string = '?';
