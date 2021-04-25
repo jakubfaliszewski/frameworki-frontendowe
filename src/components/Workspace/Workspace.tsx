@@ -65,9 +65,10 @@ class Workspace extends Component<RouteComponentProps, S> {
     }
 
     hideSection() {
-        const newVal = !this.state.sectionHidden;
-        this.setState({
-            sectionHidden: newVal
+        this.setState((prevState) => {
+            return {
+                sectionHidden: !prevState.sectionHidden
+            }
         })
     }
 

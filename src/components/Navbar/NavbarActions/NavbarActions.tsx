@@ -37,9 +37,10 @@ class NavbarActions extends Component<P, S> {
     }
 
     openPostsNotif() {
-        const newState = !this.state.postsVisible;
-        this.setState({
-            postsVisible: newState
+        this.setState((prevState) => {
+            return {
+                postsVisible: !prevState.postsVisible
+            }
         })
     }
 

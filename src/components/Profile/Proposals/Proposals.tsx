@@ -71,10 +71,12 @@ class Proposals extends Component<P, S> {
     }
 
     onInputChange(val: { value: string, valid?: boolean }, key: _keys, index: number) {
-        let newVal = [...this.state.data];
-        newVal[index][key] = val.value;
-        this.setState({
-            data: newVal
+        this.setState((prevState) => {
+            let newVal = prevState.data;
+            newVal[index][key] = val.value;
+            return {
+                data: newVal
+            }
         });
     }
 
@@ -123,11 +125,12 @@ class Proposals extends Component<P, S> {
     }
 
     getExpandBtn() {
-        const expandAction = !this.state.expand;
         const label = this.state.expand ? "See less" : "See more proposals";
         return (!this.props.formActive && this.state.data.length > 3) && <Button label={label} onClick={() => {
-            this.setState({
-                expand: expandAction
+            this.setState((prevState) =>{
+                return {
+                    expand: !prevState.expand
+                }
             })
         }} />
     }

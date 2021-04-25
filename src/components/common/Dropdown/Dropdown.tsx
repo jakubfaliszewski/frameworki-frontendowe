@@ -65,10 +65,11 @@ class Dropdown extends Component<P, S> {
             ripple.className = styles.ripple;
             button.appendChild(ripple);
         }
-        const newState = {
-            isListOpen: !this.state.isListOpen
-        }
-        this.setState(newState);
+        this.setState((prevState) => {
+            return {
+                isListOpen: !prevState.isListOpen
+            }
+        });
     }
 
     onChange(value: any) {

@@ -47,29 +47,35 @@ class ProfileDetails extends Component<P, S> {
 
 
     removeItem(key: _keys, id: string) {
-        const newState = this.state.data;
-        newState[key] = newState[key].filter((item) => id !== item.id);
-        this.setState({
-            data: newState
+        this.setState((prevState) => {
+            const newState = prevState.data;
+            newState[key] = newState[key].filter((item) => id !== item.id);
+            return {
+                data: newState
+            }
         });
     }
 
     addItem(key: _keys) {
-        const newState = { ...this.state.data };
-        newState[key].push({
-            id: uuid(),
-            value: ''
-        });
-        this.setState({
-            data: newState
+        this.setState((prevState) => {
+            const newState = prevState.data;
+            newState[key].push({
+                id: uuid(),
+                value: ''
+            });
+            return {
+                data: newState
+            }
         });
     }
 
     onInputChange(val: { value: string, valid?: boolean }, key: _keys, index: number) {
-        let newVal = { ...this.state.data };
-        newVal[key][index].value = val.value;
-        this.setState({
-            data: newVal
+        this.setState((prevState) => {
+            let newVal = prevState.data;
+            newVal[key][index].value = val.value;
+            return {
+                data: newVal
+            }
         });
     }
 

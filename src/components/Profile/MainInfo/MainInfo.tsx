@@ -96,12 +96,15 @@ class MainInfo extends Component<P, S> {
 
     onInputChange(val: { value: string, valid?: boolean }, key: string) {
         const newKeys = key.split('.');
-        let newVal = { ...this.state };
-        if (val.valid !== undefined) {
-            this.validTemp[`valid_${key}`] = val.valid;
-        }
-        set(newVal, newKeys, val.value);
-        this.setState(newVal);
+        this.setState((prevState) => {
+            let newVal = prevState;
+            if (val.valid !== undefined) {
+                this.validTemp[`valid_${key}`] = val.valid;
+            }
+            set(newVal, newKeys, val.value);
+            
+            return newVal;
+        });
     }
 
     createForm(active: boolean, fields: IField[]) {

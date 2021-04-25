@@ -59,14 +59,16 @@ class PanellInformations extends Component<P, S> {
     }
 
     onInputChange(val: { value: string, valid?: boolean }, key: _keys, index?: number) {
-        let newVal = this.state.data;
-        if (index !== undefined) {
-            (newVal[key][index] as any).value = val.value as any;
-        } else {
-            newVal[key] = val.value as any;
-        }
-        this.setState({
-            data: newVal
+        this.setState((prevState) => {
+            let newVal = prevState.data;
+            if (index !== undefined) {
+                (newVal[key][index] as any).value = val.value as any;
+            } else {
+                newVal[key] = val.value as any;
+            }
+            return {
+                data: newVal
+            }
         });
     }
 

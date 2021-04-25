@@ -44,39 +44,45 @@ class EntitiesFilters extends Component<{}, S> {
     }
 
     onFilterChange(value: {value: string}, key: string, index: number) {
-        const modifiedFilters = [...this.state.filtersList];
-        if(value.value) {
-            set(modifiedFilters[index], [key], value.value);
-        } else {
-            set(modifiedFilters[index], [key], value || value);
-        }
-        this.setState({
-            filtersList: modifiedFilters
+        this.setState((prevState) => {
+            const modifiedFilters = prevState.filtersList;
+            if(value.value) {
+                set(modifiedFilters[index], [key], value.value);
+            } else {
+                set(modifiedFilters[index], [key], value || value);
+            }
+            return {
+                filtersList: modifiedFilters
+            }
         })
     }
 
     addNewFilter() {
-        const newFilters = [...this.state.filtersList];
-        newFilters.push({
-            id: uuid(),
-            type: this.state.dropdownVal,
-            typeValue: '',
-            target: 'Company',
-            condition: 'Contains',
-            entity: '',
-            secondCodition: 'In',
-            date: new Date().toDateString()
-        });
-        this.setState({
-            filtersList: newFilters
+        this.setState((prevState) => {
+            const newFilters = prevState.filtersList;
+            newFilters.push({
+                id: uuid(),
+                type: this.state.dropdownVal,
+                typeValue: '',
+                target: 'Company',
+                condition: 'Contains',
+                entity: '',
+                secondCodition: 'In',
+                date: new Date().toDateString()
+            });
+            return {
+                filtersList: newFilters
+            }
         })
     }
 
     removeFilter(index: number) {
-        const newFilters = [...this.state.filtersList];
-        newFilters.splice(index,1);
-        this.setState({
-            filtersList: newFilters
+        this.setState((prevState) => {
+            const newFilters = prevState.filtersList;
+            newFilters.splice(index,1);
+            return  {
+                filtersList: newFilters
+            }
         })
     }
 

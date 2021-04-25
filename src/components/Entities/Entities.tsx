@@ -100,22 +100,25 @@ class Entities extends Component<P, S> {
     }
 
     showOptions() {
-        const newVal = !this.state.showOptions;
-        this.setState({
-            showOptions: newVal
-        })
+        this.setState((prevState) => {
+            return {
+                showOptions: !prevState.showOptions
+            }
+        });
     }
 
 
     changeSort() {
-        let sort = this.state.sort.valueOf();
-        if (this.state.sort < 2) {
-            sort++;
-        } else {
-            sort = 0;
-        }
-        this.setState({
-            sort: sort
+        this.setState((prevState) => {
+            let sort = prevState.sort.valueOf();
+            if (prevState.sort < 2) {
+                sort++;
+            } else {
+                sort = 0;
+            }
+            return {
+                sort: sort
+            }
         });
     }
 
@@ -143,14 +146,15 @@ class Entities extends Component<P, S> {
     share() {
         navigator.clipboard.writeText(window.location.href);
         this.props.addNotification({
-           title:  `${window.location.href} coppied to clipboard`
+            title: `${window.location.href} coppied to clipboard`
         });
     }
 
     toggleFilters() {
-        const showFilters = !this.state.showFilters;
-        this.setState({
-            showFilters: showFilters
+        this.setState((prevState) => {
+            return {
+                showFilters: !prevState.showFilters
+            }
         })
     }
 
@@ -193,7 +197,7 @@ class Entities extends Component<P, S> {
         }
         const dropdownValue = dropdownItems[dropdownItems.findIndex((v) => v.value === onlyMyEntities)];
         const filteredEntities = this.filterEntities(entities ? [...entities] : []);
-        
+
         return (
             <section className={styles.Entities}>
                 <div className={styles.EntitiesHeader}>

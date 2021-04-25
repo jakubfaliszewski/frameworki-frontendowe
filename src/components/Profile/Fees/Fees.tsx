@@ -67,10 +67,12 @@ class Fees extends Component<P, S> {
     }
 
     onInputChange(val: { value: string, valid?: boolean }, key: _keys, index: number) {
-        let newVal = [...this.state.data];
-        newVal[index][key] = val.value as never;
-        this.setState({
-            data: newVal
+        this.setState((prevState) => {
+            let newVal = prevState.data;
+            newVal[index][key] = val.value as never;
+            return {
+                data: newVal
+            }
         });
     }
 
